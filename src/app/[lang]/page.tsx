@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { connection } from "next/server";
 import { Suspense } from "react";
+import { Photo } from "@/components/photo";
 import { DifficultyBadge, Skeleton } from "@/components/ui";
 import { db } from "@/db";
 import { getDictionary, getLang } from "@/i18n/dictionaries";
@@ -9,6 +10,7 @@ import { plural } from "@/i18n/format";
 import { localize } from "@/i18n/localize";
 import { TripFiltersForm } from "@/components/trip-filters";
 import { today } from "@/lib/bookings";
+import { tripCover } from "@/lib/images";
 import { formatDate, usd } from "@/lib/pricing";
 import { hasActiveFilters, parseTripFilters, searchTrips, type SearchParams } from "@/lib/trip-search";
 
@@ -68,7 +70,15 @@ async function TripList({ searchParams }: { searchParams: Promise<SearchParams> 
       ) : (
         <div className="grid gap-4 sm:grid-cols-2">
           {trips.map((trip) => (
-            <Link key={trip.id} href={`/${lang}/trips/${trip.slug}`} className="card group p-6 transition hover:border-accent">
+            <Link key={trip.id} href={`/${lang}/trips/${trip.slug}`} className="card group flex flex-col overflow-hidden transition hover:border-accent">
+              <Photo
+                name={tripCover(trip.slug, trip.region)}
+                sizes="(min-width: 1024px) 496px, (min-width: 640px) 50vw, 100vw"
+                frame="aspect-[16/9]"
+                linkCredit={false}
+                className="[&>div]:rounded-none [&>figcaption]:px-6 [&>figcaption]:pb-1"
+              />
+              <div className="p-6 pt-4">
               <div className="mb-3 flex items-center justify-between text-sm text-muted">
                 <span>
                   {plural(common.ui.days, trip.durationDays, lang)} · {common.regions[trip.region]}
@@ -83,6 +93,7 @@ async function TripList({ searchParams }: { searchParams: Promise<SearchParams> 
               <p className="mt-1 text-sm text-muted">
                 {trip.nextDeparture ? `${t.nextDeparture}: ${formatDate(trip.nextDeparture, lang)}` : t.noOpenDates}
               </p>
+              </div>
             </Link>
           ))}
         </div>

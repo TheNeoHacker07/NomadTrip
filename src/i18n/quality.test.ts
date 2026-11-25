@@ -28,7 +28,7 @@ const allPlurals = (locale: string): Record<string, PluralForms> =>
   Object.assign({}, ...namespaces.map((ns) => Object.fromEntries(Object.entries(pluralEntries(load(locale, ns))).map(([k, v]) => [`${ns}.${k}`, v]))));
 
 /** Brand names, codes and technical labels that legitimately stay in Latin script in ru/ky. */
-const LATIN_ALLOWED = new Set(["NomadTrip", "WhatsApp", "Telegram", "FRU", "OSS", "USD", "UTC", "TK", "Slug", "slug"]);
+const LATIN_ALLOWED = new Set(["NomadTrip", "WhatsApp", "Telegram", "FRU", "OSS", "USD", "UTC", "TK", "Slug", "slug", "Wikimedia", "Commons"]);
 const stripVars = (s: string) => s.replace(/\{\w+\}|%s/g, "");
 
 describe.each(["ru", "ky"] as const)("%s text quality", (locale) => {

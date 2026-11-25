@@ -10,6 +10,7 @@ import type confirmation from "./dictionaries/en/confirmation.json";
 import type admin from "./dictionaries/en/admin.json";
 import type filters from "./dictionaries/en/filters.json";
 import type content from "./dictionaries/en/content.json";
+import type included from "./dictionaries/en/included.json";
 
 /** Namespace -> dictionary shape, typed from the `en` files. */
 export type Dictionaries = {
@@ -21,6 +22,7 @@ export type Dictionaries = {
   admin: typeof admin;
   filters: typeof filters;
   content: typeof content;
+  included: typeof included;
 };
 export type Namespace = keyof Dictionaries;
 // Keeps config.namespaces and the typed dictionaries in lockstep.
@@ -37,6 +39,7 @@ const loaders = {
     admin: () => import("./dictionaries/en/admin.json"),
     filters: () => import("./dictionaries/en/filters.json"),
     content: () => import("./dictionaries/en/content.json"),
+    included: () => import("./dictionaries/en/included.json"),
   },
   ru: {
     common: () => import("./dictionaries/ru/common.json"),
@@ -47,6 +50,7 @@ const loaders = {
     admin: () => import("./dictionaries/ru/admin.json"),
     filters: () => import("./dictionaries/ru/filters.json"),
     content: () => import("./dictionaries/ru/content.json"),
+    included: () => import("./dictionaries/ru/included.json"),
   },
   ky: {
     common: () => import("./dictionaries/ky/common.json"),
@@ -57,6 +61,7 @@ const loaders = {
     admin: () => import("./dictionaries/ky/admin.json"),
     filters: () => import("./dictionaries/ky/filters.json"),
     content: () => import("./dictionaries/ky/content.json"),
+    included: () => import("./dictionaries/ky/included.json"),
   },
 } satisfies Record<Locale, { [N in Namespace]: () => Promise<{ default: Dictionaries[N] }> }>;
 
