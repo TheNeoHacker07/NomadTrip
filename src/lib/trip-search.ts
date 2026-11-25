@@ -2,6 +2,7 @@ import { and, asc, desc, eq, gte, isNotNull, lte, sql, type SQL } from "drizzle-
 import { z } from "zod";
 import type { Db } from "@/db";
 import { tripRegions, trips, type TripRegion } from "@/db/schema";
+import { seatsTakenFor } from "./bookings";
 
 export const durationBuckets = ["2-3", "4-7", "8-14", "15-30"] as const;
 export type DurationBucket = (typeof durationBuckets)[number];
@@ -69,27 +70,14 @@ export function parseTripFilters(params: SearchParams): TripFilters {
   };
 }
 
-/** Query string (without `?`) holding only the active filters; used to build links. */
-export function filtersToQuery(f: TripFilters): string {
-  const q = new URLSearchParams();
-  if (f.region) q.set("region", f.region);
-  if (f.duration) q.set("duration", f.duration);
-  if (f.priceMin !== undefined) q.set("priceMin", String(f.priceMin));
-  if (f.priceMax !== undefined) q.set("priceMax", String(f.priceMax));
-  if (f.from) q.set("from", f.from);
-  if (f.to) q.set("to", f.to);
-  if (f.sort !== "soonest") q.set("sort", f.sort);
-  return q.toString();
-}
-
 export function hasActiveFilters(f: TripFilters) {
   return Boolean(f.region || f.duration || f.priceMin !== undefined || f.priceMax !== undefined || f.from || f.to);
 }
 
 /**
  * Earliest departure after `today` (and inside the optional date range) that still has a free seat.
- * Fully qualified column names: the subquery is correlated with the outer "trips" row. Seat rule is the
- * same as `seatsTakenSql` in bookings.ts (capacity minus travelers of non-cancelled bookings).
+ * Fully qualified column names: the subquery is correlated with the outer "trips" row. Seats use the shared
+ * `seatsTakenFor` rule from bookings.ts.
  */
 function nextOpenDepartureSql(f: TripFilters, today: string) {
   const lower = f.from && f.from > today ? f.from : null;
@@ -99,10 +87,7 @@ function nextOpenDepartureSql(f: TripFilters, today: string) {
       and d.start_date > ${today}
       ${lower ? sql`and d.start_date >= ${lower}` : sql``}
       ${f.to ? sql`and d.start_date <= ${f.to}` : sql``}
-      and d.capacity > coalesce((
-        select sum(b.traveler_count) from bookings b
-        where b.departure_id = d.id and b.status != 'cancelled'
-      ), 0)
+      and d.capacity > ${seatsTakenFor(sql.raw("d.id"))}
   )`;
 }
 

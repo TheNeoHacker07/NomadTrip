@@ -1,5 +1,5 @@
 import { randomInt } from "node:crypto";
-import { and, asc, desc, eq, gt, inArray, ne, sql } from "drizzle-orm";
+import { and, asc, desc, eq, gt, inArray, ne, sql, type SQL } from "drizzle-orm";
 import type { Db } from "@/db";
 import { bookings, departures, travelers, trips, type BookingStatus } from "@/db/schema";
 import type { BookingInput } from "./booking-input";
@@ -7,10 +7,13 @@ import { quote } from "./pricing";
 
 // Fully qualified on purpose: Drizzle renders bare column names when a query has no join,
 // which inside this correlated subquery would bind to bookings.id instead of departures.id.
-const seatsTakenSql = sql<number>`coalesce((
+/** The one seat rule: travelers of non-cancelled bookings on the departure identified by `departureId`. */
+export const seatsTakenFor = (departureId: SQL) => sql<number>`coalesce((
   select sum(b.traveler_count) from bookings b
-  where b.departure_id = "departures"."id" and b.status != 'cancelled'
+  where b.departure_id = ${departureId} and b.status != 'cancelled'
 ), 0)`;
+
+const seatsTakenSql = seatsTakenFor(sql.raw(`"departures"."id"`));
 
 export const today = () => new Date().toISOString().slice(0, 10);
 
