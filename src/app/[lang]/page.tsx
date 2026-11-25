@@ -12,11 +12,15 @@ import { TripFiltersForm } from "@/components/trip-filters";
 import { today } from "@/lib/bookings";
 import { tripCover } from "@/lib/images";
 import { formatDate, usd } from "@/lib/pricing";
+import { socialMetadata } from "@/lib/site";
 import { hasActiveFilters, parseTripFilters, searchTrips, type SearchParams } from "@/lib/trip-search";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const { meta } = await getDictionary("common");
-  return { title: { absolute: meta.title }, description: meta.description };
+  const [{ meta }, lang] = await Promise.all([getDictionary("common"), getLang()]);
+  return {
+    ...socialMetadata({ lang, path: "/", title: meta.title, description: meta.description, image: "yurt-camp" }),
+    title: { absolute: meta.title },
+  };
 }
 
 export default async function Home({ searchParams }: { searchParams: Promise<SearchParams> }) {

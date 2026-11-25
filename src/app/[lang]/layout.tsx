@@ -7,6 +7,7 @@ import { LanguageSwitcher } from "@/components/language-switcher";
 import { isLocale, localeLabels, locales } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 import { languageAlternates } from "@/i18n/format";
+import { siteUrl } from "@/lib/site";
 import "../globals.css";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin", "cyrillic"] });
@@ -20,6 +21,7 @@ export async function generateMetadata({ params }: LayoutProps<"/[lang]">): Prom
   if (!isLocale(lang)) notFound();
   const { meta } = await getDictionary("common", lang);
   return {
+    metadataBase: new URL(siteUrl()),
     title: { default: meta.title, template: meta.titleTemplate },
     description: meta.description,
     alternates: { languages: languageAlternates("/", locales) },

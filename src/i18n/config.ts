@@ -13,4 +13,4 @@ export const intlLocale: Record<Locale, string> = { en: "en-GB", ru: "ru-RU", ky
 export const LOCALE_COOKIE = "NEXT_LOCALE";
 
 /** Dictionary namespaces: one JSON file per namespace under `dictionaries/<locale>/`. */
-export const namespaces = ["common", "home", "trip", "booking", "confirmation", "admin", "filters", "content", "included"] as const;
+export const namespaces = ["common", "home", "trip", "booking", "confirmation", "admin", "filters", "content", "included", "discover"] as const;

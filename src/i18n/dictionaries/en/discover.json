@@ -1,0 +1,18 @@
+{
+  "departures": {
+    "metaTitle": "All departures",
+    "metaDescription": "Every upcoming departure across all our yurt trips in Kyrgyzstan, by month, with seats left.",
+    "title": "All departures",
+    "intro": "Every upcoming departure across all trips, by month.",
+    "monthFilter": "Month",
+    "allMonths": "All months",
+    "apply": "Show",
+    "empty": "No departures in this period.",
+    "pricePerPerson": "{price} per person",
+    "book": "Book",
+    "trip": "Trip"
+  },
+  "similar": {
+    "title": "You might also like"
+  }
+}
