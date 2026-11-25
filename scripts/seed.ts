@@ -45,7 +45,7 @@ const catalog: {
 }[] = [
   {
     slug: "song-kul-weekend",
-    title: l("Song-Kul Lake Escape", "Побег на озеро Сон-Куль", "Соң-Көл көлүнө саякат"),
+    title: l("Song-Kul Lake Escape", "Уикенд на озере Сон-Куль", "Соң-Көлгө саякат"),
     region: "naryn",
     summary: l(
       "Two days at a high-alpine lake, sleeping in a herder family's yurt camp.",
@@ -90,23 +90,23 @@ const catalog: {
   },
   {
     slug: "issyk-kul-circle",
-    title: l("Issyk-Kul Circle", "Вокруг Иссык-Куля", "Ысык-Көлдү айланып"),
+    title: l("Issyk-Kul Circle", "Вокруг Иссык-Куля", "Ысык-Көлдү айланган саякат"),
     region: "issyk_kul",
     summary: l(
       "A week around the 'warm lake' — red canyons, eagle hunters and alpine valleys.",
       "Неделя вокруг «тёплого озера»: красные каньоны, охотники с беркутами и альпийские долины.",
-      "«Ысык» көлдү айланып бир жума: кызыл капчыгайлар, бүркүтчүлөр жана тоо өрөөндөрү.",
+      "«Ысык көлдү» айланган бир жума: кызыл капчыгайлар, бүркүтчүлөр жана тоо өрөөндөрү.",
     ),
     description: l(
       "Loop around Issyk-Kul, the world's second-largest alpine lake. Walk Skazka's red fairy-tale canyon, meet a berkutchi eagle hunter in Bokonbaevo, hike the Jeti-Oguz valley and sleep in yurt camps along the south shore.",
-      "Объедьте Иссык-Куль — второе по величине высокогорное озеро мира. Пройдитесь по красному сказочному каньону Сказка, познакомьтесь с беркутчи в Боконбаево, отправьтесь в поход по ущелью Джети-Огуз и ночуйте в юртовых лагерях на южном берегу.",
+      "Объедьте Иссык-Куль — второе по величине высокогорное озеро мира. Пройдитесь по красному сказочному каньону Сказка, познакомьтесь с беркутчи в Боконбаево, отправьтесь в поход по ущелью Джеты-Огуз и ночуйте в юртовых лагерях на южном берегу.",
       "Дүйнөдөгү экинчи чоң тоолуу көл — Ысык-Көлдү айланыңыз. Жомок капчыгайынын кызыл жомоктогудай жолдору менен жүрүп, Боконбаевде бүркүтчү менен таанышып, Жети-Өгүз өрөөнүндө жөө жүрүп, түштүк жээктеги боз үй лагерлеринде түнөңүз.",
     ),
     pricePerPersonUsd: 690,
     difficulty: "moderate",
     highlights: l(
       ["Skazka canyon", "Eagle hunting demo", "Jeti-Oguz valley hike", "Karakol Dungan dinner"],
-      ["Каньон Сказка", "Показ охоты с беркутом", "Поход по ущелью Джети-Огуз", "Дунганский ужин в Караколе"],
+      ["Каньон Сказка", "Показ охоты с беркутом", "Поход по ущелью Джеты-Огуз", "Дунганский ужин в Караколе"],
       ["Жомок капчыгайы", "Бүркүт салуу көрсөтмөсү", "Жети-Өгүз өрөөнүндө жөө жүрүш", "Караколдогу дунган кечки тамагы"],
     ),
     itinerary: itinerary([
@@ -132,13 +132,13 @@ const catalog: {
       },
       {
         days: 2,
-        title: l("Jeti-Oguz valley", "Ущелье Джети-Огуз", "Жети-Өгүз өрөөнү"),
+        title: l("Jeti-Oguz valley", "Ущелье Джеты-Огуз", "Жети-Өгүз өрөөнү"),
         description: l(
           "Day hikes in the valley of the Seven Bulls; picnic lunches with local families.",
           "Однодневные походы по долине Семи Быков; пикники с местными семьями.",
-          "Жети өгүз өрөөнүндө күндүзгү жөө жүрүштөр; жергиликтүү үй-бүлөлөр менен түштөнүү.",
+          "Жети-Өгүз өрөөнүндө күндүзгү жөө жүрүштөр; жергиликтүү үй-бүлөлөр менен түштөнүү.",
         ),
-        overnight: l("Jeti-Oguz yurt camp", "Юртовый лагерь в Джети-Огузе", "Жети-Өгүздөгү боз үй лагери"),
+        overnight: l("Jeti-Oguz yurt camp", "Юртовый лагерь в Джеты-Огузе", "Жети-Өгүздөгү боз үй лагери"),
       },
       {
         days: 1,
@@ -175,7 +175,7 @@ const catalog: {
   },
   {
     slug: "tian-shan-horse-trek",
-    title: l("Tian Shan Horse Trek", "Конный трек по Тянь-Шаню", "Тянь-Шань боюнча ат менен жүрүш"),
+    title: l("Tian Shan Horse Trek", "Конный поход по Тянь-Шаню", "Теңир-Тоо боюнча ат менен жүрүш"),
     region: "multi",
     summary: l(
       "Two weeks in the saddle across high passes, from Kochkor to Song-Kul and beyond.",
@@ -210,7 +210,7 @@ const catalog: {
         title: l("Ride to Song-Kul", "Верхом к Сон-Кулю", "Соң-Көлгө ат менен"),
         description: l(
           "Ride over Jalgyz-Karagai pass to the lake.",
-          "Подъём верхом через перевал Жалгыз-Карагай к озеру.",
+          "Верхом через перевал Жалгыз-Карагай к озеру.",
           "Жалгыз-Карагай ашуусу аркылуу көлгө чейин ат минүү.",
         ),
         overnight: l("Herders' yurt camp", "Юртовый лагерь пастухов", "Малчылардын боз үй лагери"),
@@ -266,7 +266,7 @@ const catalog: {
     difficulty: "moderate",
     highlights: l(
       ["Song-Kul, Issyk-Kul & Sary-Chelek", "Lenin Peak base camp", "Osh bazaar", "Arslanbob walnut forest"],
-      ["Сон-Куль, Иссык-Куль и Сары-Челек", "Базовый лагерь пика Ленина", "Ошский базар", "Ореховый лес Арсланбоб"],
+      ["Сон-Куль, Иссык-Куль и Сары-Челек", "Базовый лагерь пика Ленина", "Ошский базар", "Ореховый лес Арстанбоб"],
       ["Соң-Көл, Ысык-Көл жана Сары-Челек", "Ленин чокусунун базалык лагери", "Ош базары", "Арстанбап жаңгак токою"],
     ),
     itinerary: itinerary([
@@ -282,10 +282,10 @@ const catalog: {
       },
       {
         days: 7,
-        title: l("Issyk-Kul circle", "Вокруг Иссык-Куля", "Ысык-Көлдү айланып"),
+        title: l("Issyk-Kul circle", "Вокруг Иссык-Куля", "Ысык-Көлдү айлануу"),
         description: l(
           "Canyons, eagle hunters, Jeti-Oguz and Karakol.",
-          "Каньоны, охотники с беркутами, Джети-Огуз и Каракол.",
+          "Каньоны, охотники с беркутами, Джеты-Огуз и Каракол.",
           "Капчыгайлар, бүркүтчүлөр, Жети-Өгүз жана Каракол.",
         ),
         overnight: l("South-shore yurt camps", "Юртовые лагеря на южном берегу", "Түштүк жээктеги боз үй лагерлери"),
@@ -302,7 +302,7 @@ const catalog: {
       },
       {
         days: 5,
-        title: l("Sary-Chelek & Arslanbob", "Сары-Челек и Арсланбоб", "Сары-Челек жана Арстанбап"),
+        title: l("Sary-Chelek & Arslanbob", "Сары-Челек и Арстанбоб", "Сары-Челек жана Арстанбап"),
         description: l(
           "Biosphere reserve lakes and the world's largest walnut forest.",
           "Озёра биосферного заповедника и крупнейший в мире ореховый лес.",
@@ -339,8 +339,8 @@ const catalog: {
     region: "chui",
     summary: l(
       "Three easy days of forest, rivers and horse rides, an hour or two from Bishkek.",
-      "Три лёгких дня среди лесов, рек и верховых прогулок — недалеко от Бишкека.",
-      "Бишкектен алыс эмес токойлордун, дарыялардын жана ат минүүлөрдүн арасында үч жеңил күн.",
+      "Три лёгких дня среди лесов, рек и верховых прогулок — в одном-двух часах езды от Бишкека.",
+      "Бишкектен бир-эки сааттык жолдо токойлордун, дарыялардын жана ат минүүлөрдүн арасында үч жеңил күн.",
     ),
     description: l(
       "A gentle introduction to yurt life in the Chon-Kemin valley, a green river valley in the northern Tian Shan. Ride along the Chon-Kemin river, walk through spruce forest in the national park, and spend two nights in a family-run yurt camp. The trip is short and easy, and it suits families and first-time visitors.",
@@ -390,7 +390,7 @@ const catalog: {
   },
   {
     slug: "sary-chelek-arslanbob",
-    title: l("Sary-Chelek & Arslanbob", "Сары-Челек и Арсланбоб", "Сары-Челек жана Арстанбап"),
+    title: l("Sary-Chelek & Arslanbob", "Сары-Челек и Арстанбоб", "Сары-Челек жана Арстанбап"),
     region: "jalal_abad",
     summary: l(
       "Walnut forests, waterfalls and a mountain lake in a biosphere reserve in southern Kyrgyzstan.",
@@ -399,26 +399,26 @@ const catalog: {
     ),
     description: l(
       "Six days in the green mountains of Jalal-Abad region. Start in Arslanbob, home to one of the largest natural walnut forests in the world, and walk to its waterfalls. Then travel to the Sary-Chelek biosphere reserve for its clear mountain lakes. Nights are spent in village yurt camps and with host families.",
-      "Шесть дней в зелёных горах Джалал-Абадской области. Начните с Арсланбоба — здесь один из крупнейших в мире естественных ореховых лесов — и дойдите до его водопадов. Затем отправляйтесь в Сары-Челекский биосферный заповедник с его прозрачными горными озёрами. Ночёвки — в деревенских юртовых лагерях и у принимающих семей.",
+      "Шесть дней в зелёных горах Джалал-Абадской области. Начните с Арстанбоба — здесь один из крупнейших в мире естественных ореховых лесов — и дойдите до его водопадов. Затем отправляйтесь в Сары-Челекский биосферный заповедник с его прозрачными горными озёрами. Ночёвки — в деревенских юртовых лагерях и у принимающих семей.",
       "Жалал-Абад облусунун жашыл тоолорунда алты күн. Дүйнөдөгү эң чоң табигый жаңгак токойлордун бири жайгашкан Арстанбаптан баштап, анын шаркыратмаларына чейин жөө барабыз. Андан кийин тунук тоо көлдөрү бар Сары-Челек биосфералык коругуна жөнөйбүз. Түнөө — айылдагы боз үй лагерлеринде жана үй ээлеринин үйүндө.",
     ),
     pricePerPersonUsd: 890,
     difficulty: "moderate",
     highlights: l(
       ["Arslanbob walnut forest", "Waterfall hike", "Sary-Chelek biosphere reserve", "Village host families"],
-      ["Ореховый лес Арсланбоба", "Поход к водопадам", "Сары-Челекский заповедник", "Деревенские принимающие семьи"],
+      ["Ореховый лес Арстанбоба", "Поход к водопадам", "Сары-Челекский заповедник", "Деревенские принимающие семьи"],
       ["Арстанбаптын жаңгак токою", "Шаркыратмаларга жөө жүрүш", "Сары-Челек биосфералык коругу", "Айылдык үй ээлери"],
     ),
     itinerary: itinerary([
       {
         days: 2,
-        title: l("Arslanbob", "Арсланбоб", "Арстанбап"),
+        title: l("Arslanbob", "Арстанбоб", "Арстанбап"),
         description: l(
           "Meet in Osh or Jalal-Abad and transfer to Arslanbob. Walk through the walnut forest to the waterfalls and visit village families.",
-          "Встреча в Оше или Джалал-Абаде и трансфер в Арсланбоб. Прогулка через ореховый лес к водопадам и визит к семьям в деревне.",
+          "Встреча в Оше или Джалал-Абаде и трансфер в Арстанбоб. Прогулка через ореховый лес к водопадам и визит к семьям в деревне.",
           "Ошто же Жалал-Абадда жолугуп, Арстанбапка жөнөйбүз. Жаңгак токою аркылуу шаркыратмаларга чейин жөө баруу жана айылдагы үй-бүлөлөргө конокко баруу.",
         ),
-        overnight: l("Arslanbob host-family yurts", "Юрты в семьях Арсланбоба", "Арстанбаптагы үй ээлеринин боз үйлөрү"),
+        overnight: l("Arslanbob host-family yurts", "Юрты в семьях Арстанбоба", "Арстанбаптагы үй ээлеринин боз үйлөрү"),
       },
       {
         days: 1,
@@ -525,19 +525,19 @@ const catalog: {
     summary: l(
       "Five days to a remote turquoise lake in the Naryn mountains, via the Tash-Rabat caravanserai.",
       "Пять дней до далёкого бирюзового озера в горах Нарына через караван-сарай Таш-Рабат.",
-      "Таш-Рабат караван-сарайы аркылуу Нарын тоолорундагы алыскы көгүлтүр көлгө беш күн.",
+      "Таш-Рабат керван-сарайы аркылуу Нарын тоолорундагы алыскы көгүлтүр көлгө беш күн.",
     ),
     description: l(
       "A rugged journey to Kel-Suu, a remote lake in the Naryn region near the border with China, reached on rough tracks and short hikes. On the way, visit the stone Tash-Rabat caravanserai and sleep in yurts in high valleys. Border-zone permits are required for the area and we arrange them in advance. The road is long and rough, so this trip suits travellers with some fitness and a sense of adventure.",
       "Непростая поездка к озеру Кёль-Суу — далёкому озеру в Нарынской области у границы с Китаем, куда ведут грунтовые дороги и короткие пешие участки. По пути — каменный караван-сарай Таш-Рабат и ночёвки в юртах в высокогорных долинах. Для этого района нужен пропуск в приграничную зону, мы оформляем его заранее. Дорога долгая и тряская, поэтому поездка подойдёт тем, у кого есть базовая физическая подготовка и тяга к приключениям.",
-      "Кытай менен чектешкен Нарын облусундагы алыскы Көл-Суу көлүнө кыйын жол: начар жолдор жана кыска жөө бөлүктөр. Жолдо таш Таш-Рабат караван-сарайын көрүп, бийик өрөөндөрдөгү боз үйлөрдө түнөйбүз. Бул аймакка чек ара зонасына уруксат талап кылынат, аны алдын ала биз тактайбыз. Жол узак жана оор, ошондуктан бир аз физикалык даярдыгы бар жана укмуштуу окуяны сүйгөн саякатчыларга ылайыктуу.",
+      "Кытай менен чектешкен Нарын облусундагы алыскы Көл-Суу көлүнө кыйын жол: начар жолдор жана кыска жөө бөлүктөр. Жолдо таш Таш-Рабат керван-сарайын көрүп, бийик өрөөндөрдөгү боз үйлөрдө түнөйбүз. Бул аймакка кирүү үчүн чек ара зонасына уруксат талап кылынат, аны биз алдын ала тариздейбиз. Жол узак жана оор, ошондуктан бир аз физикалык даярдыгы бар жана укмуштуу окуяларды сүйгөн саякатчыларга ылайыктуу.",
     ),
     pricePerPersonUsd: 780,
     difficulty: "challenging",
     highlights: l(
       ["Kel-Suu lake", "Tash-Rabat caravanserai", "4x4 and hiking in the high mountains", "Remote yurt camps"],
       ["Озеро Кёль-Суу", "Караван-сарай Таш-Рабат", "Внедорожники и пешие участки в высоких горах", "Далёкие юртовые лагеря"],
-      ["Көл-Суу көлү", "Таш-Рабат караван-сарайы", "Бийик тоолордо внедорожник жана жөө жүрүш", "Алыскы боз үй лагерлери"],
+      ["Көл-Суу көлү", "Таш-Рабат керван-сарайы", "Бийик тоолордо внедорожник жана жөө жүрүш", "Алыскы боз үй лагерлери"],
     ),
     itinerary: itinerary([
       {
@@ -556,7 +556,7 @@ const catalog: {
         description: l(
           "Drive through the At-Bashi valley to the medieval stone caravanserai of Tash-Rabat, with a short walk in the surrounding hills.",
           "Дорога через долину Ат-Баши к средневековому каменному караван-сараю Таш-Рабат и короткая прогулка по окрестным холмам.",
-          "Ат-Башы өрөөнү аркылуу орто кылымдагы таш Таш-Рабат караван-сарайына барып, айланадагы адырларда кыска сейилдейбиз.",
+          "Ат-Башы өрөөнү аркылуу орто кылымдагы таш Таш-Рабат керван-сарайына барып, айланадагы адырларда кыска сейилдейбиз.",
         ),
         overnight: l("Tash-Rabat yurt camp", "Юртовый лагерь у Таш-Рабата", "Таш-Рабаттагы боз үй лагери"),
       },
@@ -690,7 +690,7 @@ const catalog: {
     description: l(
       "Travel to Batken, Kyrgyzstan's remote southwest, a region known for its apricots. Visit orchard villages and meet host families, then trek into the Ak-Suu valley in the Karavshin range, known to climbers for its granite walls. Border-zone permits are required here and we arrange them in advance. The trek is demanding and at altitude, with several nights in camp.",
       "Отправьтесь в Баткен — далёкий юго-запад Кыргызстана, известный своими абрикосами. Вы побываете в деревнях с садами, познакомитесь с принимающими семьями, а затем совершите поход в долину Ак-Суу в хребте Каравшин, известную скалолазам гранитными стенами. Для этого района нужен пропуск в приграничную зону, мы оформляем его заранее. Поход сложный, на высоте, с несколькими ночёвками в лагере.",
-      "Өрүгү менен белгилүү Кыргызстандын алыскы түштүк-батышы — Баткенге барабыз. Бакчалуу айылдарга баруу жана үй ээлери менен таанышуудан кийин, аскачылар гранит аскалары менен билген Каравшин кыркасындагы Ак-Суу өрөөнүнө жөө жүрөбүз. Бул жерде чек ара зонасына уруксат талап кылынат, аны алдын ала биз тактайбыз. Жөө жүрүш татаал, бийиктикте, лагерде бир нече түнөө менен.",
+      "Өрүгү менен белгилүү Кыргызстандын алыскы түштүк-батышы — Баткенге барабыз. Бакчалуу айылдарга баруу жана үй ээлери менен таанышуудан кийин, аскачылар гранит аскалары менен билген Каравшин кыркасындагы Ак-Суу өрөөнүнө жөө жүрөбүз. Бул жерге кирүү үчүн чек ара зонасына уруксат талап кылынат, аны биз алдын ала тариздейбиз. Жөө жүрүш татаал, бийик тоодо өтөт жана лагерде бир нече түн болот.",
     ),
     pricePerPersonUsd: 1450,
     difficulty: "challenging",
@@ -722,7 +722,7 @@ const catalog: {
       },
       {
         days: 2,
-        title: l("Approach to Ak-Suu", "Дорога к Ак-Суу", "Ак-Суу жакка жол"),
+        title: l("Approach to Ak-Suu", "Дорога к Ак-Суу", "Ак-Суу тарапка жол"),
         description: l(
           "Transfer by 4x4 into the mountains toward the Ak-Suu valley, with an acclimatisation walk.",
           "Переезд на внедорожнике в горы в сторону долины Ак-Суу, акклиматизационная прогулка.",

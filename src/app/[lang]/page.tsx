@@ -47,6 +47,8 @@ async function TripList({ searchParams }: { searchParams: Promise<SearchParams> 
   ]);
   const filters = parseTripFilters(params);
   const trips = searchTrips(db, filters, today());
+  // `priceFrom` holds a {price} slot so each language can place the amount (e.g. "from $1" / "$1 баштап").
+  const [priceBefore, priceAfter] = home.priceFrom.split("{price}");
   return (
     <>
       <TripFiltersForm lang={lang} filters={filters} t={t} regionLabels={common.regions} />
@@ -76,7 +78,7 @@ async function TripList({ searchParams }: { searchParams: Promise<SearchParams> 
               <h3 className="text-lg font-semibold group-hover:text-accent">{localize(trip.title, lang)}</h3>
               <p className="mt-2 text-sm text-muted">{localize(trip.summary, lang)}</p>
               <p className="mt-4 text-sm">
-                {home.from} <span className="text-lg font-bold">{usd(trip.pricePerPersonUsd)}</span> / {common.ui.perPerson}
+                {priceBefore}<span className="text-lg font-bold">{usd(trip.pricePerPersonUsd)}</span>{priceAfter} / {common.ui.perPerson}
               </p>
               <p className="mt-1 text-sm text-muted">
                 {trip.nextDeparture ? `${t.nextDeparture}: ${formatDate(trip.nextDeparture, lang)}` : t.noOpenDates}

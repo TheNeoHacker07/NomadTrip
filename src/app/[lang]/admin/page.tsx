@@ -141,7 +141,7 @@ async function BookingList({ searchParams }: { searchParams: PageProps<"/[lang]/
               <dd>{a.pickup}: {b.needsAirportPickup ? a.yes : a.no}</dd>
               {b.specialRequests && <dd>{a.requests}: {b.specialRequests}</dd>}
               {b.referralSource && <dd>{a.heardVia}: {b.referralSource}</dd>}
-              <dd className="text-muted">{interpolate(a.received, { date: b.createdAt })}</dd>
+              <dd className="text-muted">{interpolate(a.received, { date: `${formatDate(b.createdAt.slice(0, 10), lang)} ${b.createdAt.slice(11, 16)}` })}</dd>
             </dl>
           </div>
 

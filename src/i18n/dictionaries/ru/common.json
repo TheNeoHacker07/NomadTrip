@@ -30,7 +30,7 @@
     "challenging": "Сложный"
   },
   "status": {
-    "pending": "Ожидает",
+    "pending": "Ожидает подтверждения",
     "confirmed": "Подтверждено",
     "cancelled": "Отменено"
   },

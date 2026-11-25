@@ -71,7 +71,7 @@ async function EditTrip({ params, back }: { params: PageProps<"/[lang]/admin/tri
                   <div className="text-muted">
                     {a.departures.taken}: {interpolate(a.departures.seats, { taken: d.taken, capacity: d.capacity })}
                   </div>
-                  {d.bookingCount > 0 && <div className="text-muted">{interpolate(a.departures.bookingsCount, { count: d.bookingCount })}</div>}
+                  {d.bookingCount > 0 && <div className="text-muted">{plural(a.departures.bookingsCount, d.bookingCount, lang)}</div>}
                 </div>
                 <ActionForm action={setCapacityAction} messages={messages} className="flex flex-wrap items-center gap-2">
                   <input type="hidden" name="departureId" value={d.id} />

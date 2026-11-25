@@ -127,6 +127,6 @@
     "deleteHint": "Only departures without bookings can be deleted.",
     "addTitle": "Add departure",
     "add": "Add",
-    "bookingsCount": "{count} bookings"
+    "bookingsCount": { "one": "{count} booking", "few": "{count} bookings", "many": "{count} bookings", "other": "{count} bookings" }
   }
 }
