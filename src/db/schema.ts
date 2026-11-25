@@ -96,7 +96,36 @@ export const travelers = sqliteTable("travelers", {
   ridingExperience: text("riding_experience", { enum: ["none", "beginner", "confident"] }).notNull(),
 });
 
+export const inquiryStatuses = ["new", "handled"] as const;
+export type InquiryStatus = (typeof inquiryStatuses)[number];
+
+/** Custom-trip requests from the public inquiry form. No contact detail is ever shown outside /admin. */
+export const inquiries = sqliteTable(
+  "inquiries",
+  {
+    id: integer().primaryKey({ autoIncrement: true }),
+    createdAt: text("created_at").notNull().default(sql`(CURRENT_TIMESTAMP)`),
+    lang: text({ enum: ["en", "ru", "ky"] }).notNull(),
+    name: text().notNull(),
+    email: text().notNull(),
+    phone: text(),
+    messenger: text({ enum: ["whatsapp", "telegram", "email"] }).notNull(),
+    tripId: integer("trip_id").references(() => trips.id),
+    preferredStart: text("preferred_start"), // YYYY-MM-DD
+    durationDays: integer("duration_days"),
+    groupSize: integer("group_size").notNull(),
+    message: text().notNull(),
+    status: text({ enum: inquiryStatuses }).notNull().default("new"),
+  },
+  (t) => [
+    index("inquiries_status_idx").on(t.status, t.createdAt),
+    check("inquiry_duration_range", sql`${t.durationDays} IS NULL OR ${t.durationDays} BETWEEN 2 AND 30`),
+    check("inquiry_group_range", sql`${t.groupSize} BETWEEN 1 AND 30`),
+  ],
+);
+
 export type Trip = typeof trips.$inferSelect;
 export type Departure = typeof departures.$inferSelect;
 export type Booking = typeof bookings.$inferSelect;
 export type Traveler = typeof travelers.$inferSelect;
+export type Inquiry = typeof inquiries.$inferSelect;

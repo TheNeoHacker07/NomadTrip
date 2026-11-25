@@ -56,6 +56,9 @@ async function BookingList({ searchParams }: { searchParams: PageProps<"/[lang]/
     const qs = p.toString();
     return `/${lang}/admin${qs ? `?${qs}` : ""}`;
   };
+  const csvParams = new URLSearchParams();
+  for (const [k, v] of Object.entries(filters)) if (v !== undefined) csvParams.set(k, String(v));
+  const csvHref = `/${lang}/admin/bookings.csv${csvParams.size ? `?${csvParams}` : ""}`;
   const tab = (active: boolean) =>
     `rounded-full border px-3 py-1 text-sm ${active ? "border-accent bg-accent text-accent-fg" : "border-border hover:border-accent"}`;
 
@@ -102,6 +105,10 @@ async function BookingList({ searchParams }: { searchParams: PageProps<"/[lang]/
               {a.filters.reset}
             </Link>
           )}
+          {/* A file download served by a route handler, so a plain link rather than next/link. */}
+          <a href={csvHref} className="ml-auto rounded-lg border border-border px-4 py-1.5 hover:border-accent">
+            {a.exportCsv}
+          </a>
         </div>
       </form>
 

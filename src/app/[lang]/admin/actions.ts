@@ -19,6 +19,7 @@ import {
   type DepartureResult,
 } from "@/lib/admin";
 import { setBookingStatus } from "@/lib/bookings";
+import { markInquiryHandled } from "@/lib/inquiry";
 import type { ActionState } from "./action-state";
 
 // Server Actions are public endpoints: every one re-checks credentials and the payload type.
@@ -34,6 +35,13 @@ export async function updateBookingStatus(formData: FormData) {
   const fd = await guard(formData);
   const { bookingId, status } = statusSchema.parse(Object.fromEntries(fd));
   setBookingStatus(db, bookingId, status);
+  refresh();
+}
+
+export async function markInquiryHandledAction(formData: FormData) {
+  const fd = await guard(formData);
+  const { inquiryId } = z.object({ inquiryId: z.coerce.number().int().positive() }).parse(Object.fromEntries(fd));
+  markInquiryHandled(db, inquiryId);
   refresh();
 }
 

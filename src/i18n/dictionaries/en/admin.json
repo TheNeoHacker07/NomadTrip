@@ -36,7 +36,9 @@
   "navLabel": "Admin sections",
   "nav": {
     "bookings": "Bookings",
-    "trips": "Trips"
+    "trips": "Trips",
+    "inquiries": "Inquiries",
+    "newCount": "{total} new"
   },
   "filters": {
     "status": "Status",
@@ -127,6 +129,55 @@
     "deleteHint": "Only departures without bookings can be deleted.",
     "addTitle": "Add departure",
     "add": "Add",
-    "bookingsCount": { "one": "{count} booking", "few": "{count} bookings", "many": "{count} bookings", "other": "{count} bookings" }
+    "bookingsCount": {
+      "one": "{count} booking",
+      "few": "{count} bookings",
+      "many": "{count} bookings",
+      "other": "{count} bookings"
+    }
+  },
+  "exportCsv": "Export CSV",
+  "inquiries": {
+    "metaTitle": "Inquiries admin",
+    "title": "Inquiries",
+    "empty": "No inquiries yet.",
+    "noMatches": "No inquiries with this status.",
+    "statusFilter": "Inquiry status",
+    "all": "All",
+    "new": "New",
+    "handled": "Handled",
+    "markHandled": "Mark handled",
+    "received": "Received {date} UTC",
+    "trip": "Trip",
+    "anyTrip": "No trip chosen",
+    "preferredStart": "Preferred start",
+    "duration": "Days",
+    "group": "Travelers",
+    "message": "Message",
+    "phone": "Phone",
+    "messenger": "Messenger",
+    "language": "Language"
+  },
+  "csv": {
+    "columns": {
+      "reference": "Reference",
+      "status": "Status",
+      "created": "Created (UTC)",
+      "trip": "Trip",
+      "start": "Start date",
+      "end": "End date",
+      "travelerCount": "Travelers",
+      "travelerNames": "Traveler names",
+      "contact": "Contact name",
+      "email": "Email",
+      "phone": "Phone",
+      "messenger": "Messenger",
+      "country": "Country",
+      "yurt": "Yurt",
+      "total": "Estimated total (USD)",
+      "pickup": "Airport pickup",
+      "airport": "Arrival airport",
+      "flight": "Flight"
+    }
   }
 }

@@ -36,7 +36,9 @@
   "navLabel": "Админ бөлүмдөрү",
   "nav": {
     "bookings": "Брондоолор",
-    "trips": "Саякаттар"
+    "trips": "Саякаттар",
+    "inquiries": "Жеке саякат өтүнүчтөрү",
+    "newCount": "Жаңысы: {total}"
   },
   "filters": {
     "status": "Абалы",
@@ -127,6 +129,55 @@
     "deleteHint": "Брондоосу жок жөнөөнү гана өчүрүүгө болот.",
     "addTitle": "Жөнөө кошуу",
     "add": "Кошуу",
-    "bookingsCount": { "one": "{count} брондоо", "few": "{count} брондоо", "many": "{count} брондоо", "other": "{count} брондоо" }
+    "bookingsCount": {
+      "one": "{count} брондоо",
+      "few": "{count} брондоо",
+      "many": "{count} брондоо",
+      "other": "{count} брондоо"
+    }
+  },
+  "exportCsv": "CSV экспорттоо",
+  "inquiries": {
+    "metaTitle": "Өтүнүчтөр — админ",
+    "title": "Жеке саякат өтүнүчтөрү",
+    "empty": "Азырынча өтүнүч жок.",
+    "noMatches": "Мындай абалдагы өтүнүч жок.",
+    "statusFilter": "Өтүнүчтүн абалы",
+    "all": "Баары",
+    "new": "Жаңылар",
+    "handled": "Иштелгендер",
+    "markHandled": "Иштелди деп белгилөө",
+    "received": "Алынган убактысы {date} UTC",
+    "trip": "Саякат",
+    "anyTrip": "Саякат тандалган жок",
+    "preferredStart": "Каалаган башталыш",
+    "duration": "Күн",
+    "group": "Саякатчылар",
+    "message": "Билдирүү",
+    "phone": "Телефон",
+    "messenger": "Мессенджер",
+    "language": "Тили"
+  },
+  "csv": {
+    "columns": {
+      "reference": "Номери",
+      "status": "Абалы",
+      "created": "Түзүлгөн (UTC)",
+      "trip": "Саякат",
+      "start": "Башталыш күнү",
+      "end": "Аяктоо күнү",
+      "travelerCount": "Саякатчылар",
+      "travelerNames": "Саякатчылардын аттары",
+      "contact": "Байланыш адамы",
+      "email": "Электрондук почта",
+      "phone": "Телефон",
+      "messenger": "Мессенджер",
+      "country": "Өлкө",
+      "yurt": "Боз үй",
+      "total": "Болжолдуу баасы (USD)",
+      "pickup": "Аэропортто тосуп алуу",
+      "airport": "Келүү аэропорту",
+      "flight": "Рейс"
+    }
   }
 }
