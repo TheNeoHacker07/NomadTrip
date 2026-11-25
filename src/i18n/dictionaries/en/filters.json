@@ -1,1 +1,36 @@
-{}
+{
+  "title": "Find a trip",
+  "region": "Place",
+  "anyRegion": "Anywhere",
+  "duration": "Duration",
+  "anyDuration": "Any length",
+  "durations": {
+    "2-3": "2–3 days",
+    "4-7": "4–7 days",
+    "8-14": "8–14 days",
+    "15-30": "15–30 days"
+  },
+  "priceMin": "Price from (USD)",
+  "priceMax": "Price up to (USD)",
+  "from": "Departing from",
+  "to": "Departing until",
+  "sort": "Sort by",
+  "sorts": {
+    "soonest": "Soonest departure",
+    "price_asc": "Price: low to high",
+    "price_desc": "Price: high to low",
+    "duration": "Shortest first"
+  },
+  "apply": "Show trips",
+  "clear": "Clear filters",
+  "count": {
+    "one": "{count} trip",
+    "few": "{count} trips",
+    "many": "{count} trips",
+    "other": "{count} trips"
+  },
+  "emptyTitle": "No trips match these filters",
+  "emptyHint": "Try a wider price range, other dates or a different place.",
+  "nextDeparture": "Next departure",
+  "noOpenDates": "No open dates"
+}
