@@ -1,6 +1,6 @@
 import { defineConfig, devices } from "@playwright/test";
 
-const PORT = 3480;
+const PORT = Number(process.env.E2E_PORT ?? 3480);
 const env = { DATABASE_PATH: "data/e2e.db", ADMIN_PASSWORD: "e2e", PORT: String(PORT) };
 
 export default defineConfig({
