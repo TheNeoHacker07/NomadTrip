@@ -1,5 +1,5 @@
 export function Skeleton({ className = "h-40" }: { className?: string }) {
-  return <div className={`animate-pulse rounded-2xl bg-border/60 ${className}`} aria-busy="true" aria-label="Loading" />;
+  return <div className={`animate-pulse rounded-2xl bg-border/60 ${className}`} aria-busy="true" />;
 }
 
 const difficultyStyle = {
@@ -8,8 +8,8 @@ const difficultyStyle = {
   challenging: "bg-rose-100 text-rose-800 dark:bg-rose-900/40 dark:text-rose-200",
 } as const;
 
-export function DifficultyBadge({ level }: { level: keyof typeof difficultyStyle }) {
-  return <span className={`rounded-full px-2.5 py-0.5 text-xs font-medium capitalize ${difficultyStyle[level]}`}>{level}</span>;
+export function DifficultyBadge({ level, label }: { level: keyof typeof difficultyStyle; label: string }) {
+  return <span className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${difficultyStyle[level]}`}>{label}</span>;
 }
 
 const statusStyle = {
@@ -18,6 +18,6 @@ const statusStyle = {
   cancelled: "bg-zinc-200 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300",
 } as const;
 
-export function StatusBadge({ status }: { status: keyof typeof statusStyle }) {
-  return <span className={`rounded-full px-2.5 py-0.5 text-xs font-medium capitalize ${statusStyle[status]}`}>{status}</span>;
+export function StatusBadge({ status, label }: { status: keyof typeof statusStyle; label: string }) {
+  return <span className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${statusStyle[status]}`}>{label}</span>;
 }

@@ -2,11 +2,12 @@ import { migrate } from "drizzle-orm/better-sqlite3/migrator";
 import { beforeEach, describe, expect, it } from "vitest";
 import { createDb, type Db } from "@/db";
 import { departures, trips } from "@/db/schema";
-import { bookingInputSchema, formDataToBookingInput, type BookingInput } from "./booking-input";
+import { bookingInputSchema, formDataToBookingInput, toFieldErrors, type BookingInput } from "./booking-input";
 import { createBooking, getBookingByReference, getTripWithDepartures, setBookingStatus } from "./bookings";
 import { quote } from "./pricing";
 
 const NOW = "2027-05-01";
+const l = <T>(v: T) => ({ en: v, ru: v, ky: v });
 let db: Db;
 let departureId: number;
 
@@ -49,8 +50,8 @@ beforeEach(() => {
   const trip = db
     .insert(trips)
     .values({
-      slug: "t", title: "T", region: "R", summary: "s", description: "d",
-      durationDays: 7, pricePerPersonUsd: 500, difficulty: "easy", highlights: [], itinerary: [],
+      slug: "t", title: l("T"), region: "multi", summary: l("s"), description: l("d"),
+      durationDays: 7, pricePerPersonUsd: 500, difficulty: "easy", highlights: l([]), itinerary: l([]),
     })
     .returning()
     .get();
@@ -123,6 +124,17 @@ describe("booking form parsing", () => {
     const paths = res.error!.issues.map((i) => i.path.join("."));
     expect(paths).toContain("consent");
     expect(paths.some((p) => p.startsWith("interests"))).toBe(true);
+  });
+
+  it("reports stable error codes (unknown Zod messages become \"invalid\")", () => {
+    const bad = base
+      .filter(([k]) => k !== "consent")
+      .map(([k, v]): [string, string] => (k === "email" ? [k, "nope"] : k === "interests" ? [k, "bungee"] : [k, v]));
+    const res = bookingInputSchema.safeParse(formDataToBookingInput(fd(bad)));
+    const errors = toFieldErrors(res.error!);
+    expect(errors.consent).toBe("consent_required");
+    expect(errors.email).toBe("invalid_email");
+    expect(errors["interests.0"]).toBe("invalid");
   });
 });
 

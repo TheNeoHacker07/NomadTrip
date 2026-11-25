@@ -1,0 +1,51 @@
+{
+  "meta": {
+    "title": "NomadTrip — путешествия по Кыргызстану с ночёвками в юртах",
+    "titleTemplate": "%s · NomadTrip",
+    "description": "Бронируйте поездки по Кыргызстану от 2 дней до месяца с ночёвками в традиционных юртовых лагерях."
+  },
+  "nav": {
+    "allTrips": "Все поездки",
+    "language": "Язык"
+  },
+  "footer": {
+    "tagline": "NomadTrip · Путешествия по Кыргызстану с ночёвками в юртах"
+  },
+  "regions": {
+    "chui": "Чуйская область",
+    "issyk_kul": "Иссык-Куль",
+    "naryn": "Нарын",
+    "talas": "Талас",
+    "jalal_abad": "Джалал-Абад",
+    "osh": "Ош",
+    "batken": "Баткен",
+    "multi": "Несколько регионов"
+  },
+  "difficulty": {
+    "easy": "Лёгкий",
+    "moderate": "Средний",
+    "challenging": "Сложный"
+  },
+  "status": {
+    "pending": "Ожидает",
+    "confirmed": "Подтверждено",
+    "cancelled": "Отменено"
+  },
+  "ui": {
+    "dash": "—",
+    "days": {
+      "one": "{count} день",
+      "few": "{count} дня",
+      "many": "{count} дней",
+      "other": "{count} дня"
+    },
+    "seatsLeft": {
+      "one": "Осталось {count} место",
+      "few": "Осталось {count} места",
+      "many": "Осталось {count} мест",
+      "other": "Осталось {count} места"
+    },
+    "fullyBooked": "Мест нет",
+    "perPerson": "на человека"
+  }
+}

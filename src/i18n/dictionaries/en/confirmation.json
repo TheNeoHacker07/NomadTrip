@@ -1,0 +1,16 @@
+{
+  "metaTitle": "Your booking",
+  "eyebrow": "Booking request received",
+  "thanks": "Rakhmat, {name}!",
+  "body": "We'll confirm availability and send payment details within 24 hours via {channel}. Keep your reference:",
+  "channels": { "whatsapp": "WhatsApp", "telegram": "Telegram", "email": "email" },
+  "status": "Status",
+  "trip": "Trip",
+  "dates": "Dates",
+  "travelers": "Travelers",
+  "yurt": "Yurt",
+  "yurtPrivate": "Private yurt",
+  "yurtShared": "Shared yurt",
+  "estimatedTotal": "Estimated total",
+  "backToTrips": "Back to trips"
+}

@@ -1,0 +1,51 @@
+{
+  "meta": {
+    "title": "NomadTrip — Кыргызстан боюнча боз үйлөрдө түнөп саякаттоо",
+    "titleTemplate": "%s · NomadTrip",
+    "description": "Кыргызстан боюнча 2 күндөн 1 айга чейинки саякаттарды боз үй лагерлеринде түнөө менен брондоңуз."
+  },
+  "nav": {
+    "allTrips": "Бардык саякаттар",
+    "language": "Тил"
+  },
+  "footer": {
+    "tagline": "NomadTrip · Кыргызстан боюнча боз үйлөрдө түнөп саякаттоо"
+  },
+  "regions": {
+    "chui": "Чүй облусу",
+    "issyk_kul": "Ысык-Көл",
+    "naryn": "Нарын",
+    "talas": "Талас",
+    "jalal_abad": "Жалал-Абад",
+    "osh": "Ош",
+    "batken": "Баткен",
+    "multi": "Бир нече аймак"
+  },
+  "difficulty": {
+    "easy": "Жеңил",
+    "moderate": "Орточо",
+    "challenging": "Татаал"
+  },
+  "status": {
+    "pending": "Күтүүдө",
+    "confirmed": "Ырасталды",
+    "cancelled": "Жокко чыгарылды"
+  },
+  "ui": {
+    "dash": "—",
+    "days": {
+      "one": "{count} күн",
+      "few": "{count} күн",
+      "many": "{count} күн",
+      "other": "{count} күн"
+    },
+    "seatsLeft": {
+      "one": "{count} орун калды",
+      "few": "{count} орун калды",
+      "many": "{count} орун калды",
+      "other": "{count} орун калды"
+    },
+    "fullyBooked": "Орун калган жок",
+    "perPerson": "бир адамга"
+  }
+}

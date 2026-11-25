@@ -1,0 +1,51 @@
+{
+  "meta": {
+    "title": "NomadTrip — Yurt journeys across Kyrgyzstan",
+    "titleTemplate": "%s · NomadTrip",
+    "description": "Book 2-day to 1-month trips across Kyrgyzstan with nights in traditional yurt camps."
+  },
+  "nav": {
+    "allTrips": "All trips",
+    "language": "Language"
+  },
+  "footer": {
+    "tagline": "NomadTrip · Yurt journeys across Kyrgyzstan"
+  },
+  "regions": {
+    "chui": "Chui",
+    "issyk_kul": "Issyk-Kul",
+    "naryn": "Naryn",
+    "talas": "Talas",
+    "jalal_abad": "Jalal-Abad",
+    "osh": "Osh",
+    "batken": "Batken",
+    "multi": "Multiple regions"
+  },
+  "difficulty": {
+    "easy": "Easy",
+    "moderate": "Moderate",
+    "challenging": "Challenging"
+  },
+  "status": {
+    "pending": "Pending",
+    "confirmed": "Confirmed",
+    "cancelled": "Cancelled"
+  },
+  "ui": {
+    "dash": "—",
+    "days": {
+      "one": "{count} day",
+      "few": "{count} days",
+      "many": "{count} days",
+      "other": "{count} days"
+    },
+    "seatsLeft": {
+      "one": "{count} seat left",
+      "few": "{count} seats left",
+      "many": "{count} seats left",
+      "other": "{count} seats left"
+    },
+    "fullyBooked": "Fully booked",
+    "perPerson": "per person"
+  }
+}

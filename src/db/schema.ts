@@ -1,22 +1,27 @@
 import { sql } from "drizzle-orm";
 import { check, index, integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
+import type { Localized } from "../i18n/localize";
 
 export type ItineraryDay = { day: number; title: string; description: string; overnight: string };
+
+/** Region keys; display labels live in the `common` dictionary under `regions`. */
+export const tripRegions = ["chui", "issyk_kul", "naryn", "talas", "jalal_abad", "osh", "batken", "multi"] as const;
+export type TripRegion = (typeof tripRegions)[number];
 
 export const trips = sqliteTable(
   "trips",
   {
     id: integer().primaryKey({ autoIncrement: true }),
     slug: text().notNull().unique(),
-    title: text().notNull(),
-    region: text().notNull(),
-    summary: text().notNull(),
-    description: text().notNull(),
+    title: text({ mode: "json" }).$type<Localized<string>>().notNull(),
+    region: text({ enum: tripRegions }).notNull(),
+    summary: text({ mode: "json" }).$type<Localized<string>>().notNull(),
+    description: text({ mode: "json" }).$type<Localized<string>>().notNull(),
     durationDays: integer("duration_days").notNull(),
     pricePerPersonUsd: integer("price_per_person_usd").notNull(),
     difficulty: text({ enum: ["easy", "moderate", "challenging"] }).notNull(),
-    highlights: text({ mode: "json" }).$type<string[]>().notNull(),
-    itinerary: text({ mode: "json" }).$type<ItineraryDay[]>().notNull(),
+    highlights: text({ mode: "json" }).$type<Localized<string[]>>().notNull(),
+    itinerary: text({ mode: "json" }).$type<Localized<ItineraryDay[]>>().notNull(),
   },
   (t) => [
     check("trip_duration_range", sql`${t.durationDays} BETWEEN 2 AND 30`),

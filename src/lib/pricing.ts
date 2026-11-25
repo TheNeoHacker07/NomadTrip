@@ -1,3 +1,5 @@
+import { intlLocale, type Locale } from "../i18n/config";
+
 export const PRIVATE_YURT_USD_PER_NIGHT = 30;
 export const YURT_SLEEPS = 4;
 
@@ -20,8 +22,8 @@ export function addDays(isoDate: string, days: number) {
   return d.toISOString().slice(0, 10);
 }
 
-export function formatDate(isoDate: string) {
-  return new Date(`${isoDate}T00:00:00Z`).toLocaleDateString("en-GB", {
+export function formatDate(isoDate: string, lang: Locale) {
+  return new Date(`${isoDate}T00:00:00Z`).toLocaleDateString(intlLocale[lang], {
     day: "numeric",
     month: "short",
     year: "numeric",
