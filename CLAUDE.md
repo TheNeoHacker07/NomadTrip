@@ -12,6 +12,9 @@ Drizzle ORM + SQLite (better-sqlite3, synchronous) · Zod 4 · Vitest. No new ru
 - `npm ci && npm run db:setup` — first run in a fresh checkout/worktree (creates `data/nomadtrip.db`, migrates, seeds; idempotent)
 - `npm test` · `npm run typecheck` (run `npx next typegen` first if route types are missing) · `npx eslint src scripts`
 - `npm run build` — full gate; route list must show no errors
+- `npm run test:e2e` — Playwright (Chromium) on port 3480 with a fresh `data/e2e.db`; it runs `next build`
+- Servers: use the port your brief assigns and stop ONLY it (`lsof -ti tcp:<port> | xargs kill`). Never `pkill -f next`,
+  `pkill node` or kill other ports — the owner's app runs on port 3000 and other agents run in parallel.
 - Schema change: edit `src/db/schema.ts`, then `npx drizzle-kit generate --name <what>`; commit the SQL in `drizzle/`.
   Dev data is disposable: `rm -rf data && npm run db:setup` to rebuild.
 
