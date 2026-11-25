@@ -17,7 +17,9 @@ export function TripFiltersForm({
   regionLabels: Dictionaries["common"]["regions"];
 }) {
   return (
-    <form method="get" action={`/${lang}`} className="card mb-6 grid gap-4 p-5 sm:grid-cols-2 lg:grid-cols-4" aria-label={t.title}>
+    // Keyed by the active filters: inputs use defaultValue, which only applies on mount, so a
+    // client-side navigation (e.g. "Clear filters") must remount the form to show the new values.
+    <form key={JSON.stringify(filters)} method="get" action={`/${lang}`} className="card mb-6 grid gap-4 p-5 sm:grid-cols-2 lg:grid-cols-4" aria-label={t.title}>
       <div>
         <label htmlFor="f-region" className="label">{t.region}</label>
         <select id="f-region" name="region" defaultValue={filters.region ?? ""} className="field">

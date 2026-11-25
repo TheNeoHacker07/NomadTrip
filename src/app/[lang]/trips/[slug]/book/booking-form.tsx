@@ -398,12 +398,14 @@ export function BookingForm({ lang, dict, departureId, departureDate, maxTravele
         ) : (
           <span />
         )}
+        {/* Distinct keys: without them React reuses one DOM button and flips it to type="submit"
+            during the Next click, so the browser submits the form on step 2. */}
         {step < 3 ? (
-          <button type="button" className="btn" onClick={goNext}>
+          <button key="next" type="button" className="btn" onClick={goNext}>
             {wizard.next} →
           </button>
         ) : (
-          <button type="submit" className="btn" disabled={pending}>
+          <button key="submit" type="submit" className="btn" disabled={pending}>
             {pending ? summary.sending : summary.submit}
           </button>
         )}
