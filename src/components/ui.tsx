@@ -3,9 +3,9 @@ export function Skeleton({ className = "h-40" }: { className?: string }) {
 }
 
 const difficultyStyle = {
-  easy: "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-200",
-  moderate: "bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-200",
-  challenging: "bg-rose-100 text-rose-800 dark:bg-rose-900/40 dark:text-rose-200",
+  easy: "bg-emerald-100 text-emerald-900 dark:bg-emerald-900/50 dark:text-emerald-100",
+  moderate: "bg-amber-100 text-amber-900 dark:bg-amber-900/50 dark:text-amber-100",
+  challenging: "bg-rose-100 text-rose-900 dark:bg-rose-900/50 dark:text-rose-100",
 } as const;
 
 export function DifficultyBadge({ level, label }: { level: keyof typeof difficultyStyle; label: string }) {
@@ -13,8 +13,8 @@ export function DifficultyBadge({ level, label }: { level: keyof typeof difficul
 }
 
 const statusStyle = {
-  pending: "bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-200",
-  confirmed: "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-200",
+  pending: "bg-amber-100 text-amber-900 dark:bg-amber-900/50 dark:text-amber-100",
+  confirmed: "bg-emerald-100 text-emerald-900 dark:bg-emerald-900/50 dark:text-emerald-100",
   cancelled: "bg-zinc-200 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300",
 } as const;
 

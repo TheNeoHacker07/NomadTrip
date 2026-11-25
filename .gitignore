@@ -53,3 +53,4 @@ next-env.d.ts
 
 # image download staging
 /.image-staging/
+/screenshots/

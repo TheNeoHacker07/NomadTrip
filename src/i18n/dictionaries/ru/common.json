@@ -12,10 +12,16 @@
     "whatsIncluded": "Что входит",
     "experiences": "Впечатления",
     "photoCredits": "Авторы фото",
-    "language": "Язык"
+    "language": "Язык",
+    "departures": "Даты выездов",
+    "manageBooking": "Моё бронирование",
+    "menu": "Меню",
+    "closeMenu": "Закрыть меню"
   },
   "footer": {
-    "tagline": "NomadTrip · Путешествия по Кыргызстану с ночёвками в юртах"
+    "tagline": "NomadTrip · Путешествия по Кыргызстану с ночёвками в юртах",
+    "tripsTitle": "Поездки",
+    "infoTitle": "Информация"
   },
   "regions": {
     "chui": "Чуйская область",

@@ -3,7 +3,7 @@ import Link from "next/link";
 import { locales } from "@/i18n/config";
 import { getDictionary, getLang } from "@/i18n/dictionaries";
 import { languageAlternates } from "@/i18n/format";
-import { CardGrid, PageHeader, Section } from "@/components/content-blocks";
+import { CardGrid, PageBanner, Section } from "@/components/content-blocks";
 
 export async function generateMetadata(): Promise<Metadata> {
   const { about: c } = await getDictionary("content");
@@ -18,7 +18,7 @@ export default async function AboutPage() {
   const [{ about }, lang] = await Promise.all([getDictionary("content"), getLang()]);
   return (
     <>
-      <PageHeader title={about.title} intro={about.intro} />
+      <PageBanner title={about.title} intro={about.intro} photo="yurt-camp" />
       <Section title={about.whoTitle}>
         <div className="space-y-4 leading-relaxed">
           {Object.values(about.who).map((p) => (

@@ -12,10 +12,16 @@
     "whatsIncluded": "What's included",
     "experiences": "Experiences",
     "photoCredits": "Photo credits",
-    "language": "Language"
+    "language": "Language",
+    "departures": "Departures",
+    "manageBooking": "My booking",
+    "menu": "Menu",
+    "closeMenu": "Close menu"
   },
   "footer": {
-    "tagline": "NomadTrip · Yurt journeys across Kyrgyzstan"
+    "tagline": "NomadTrip · Yurt journeys across Kyrgyzstan",
+    "tripsTitle": "Trips",
+    "infoTitle": "Information"
   },
   "regions": {
     "chui": "Chui",
