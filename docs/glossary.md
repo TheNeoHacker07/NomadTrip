@@ -57,7 +57,7 @@ Russian: lower-case «вы». Kyrgyz: «сиз» (polite), Cyrillic only, with �
 
 ## Left in Latin script (brand / codes)
 
-`NomadTrip`, `WhatsApp`, `Telegram`, `FRU`, `OSS`, `USD`, `UTC`, flight-number examples (`TK 345`) and the admin field label `Slug`. The allowlist lives in `src/i18n/quality.test.ts`.
+`NomadTrip`, `Wikimedia Commons`, `WhatsApp`, `Telegram`, `FRU`, `OSS`, `USD`, `UTC`, flight-number examples (`TK 345`) and the admin field label `Slug`. The allowlist lives in `src/i18n/quality.test.ts`.
 
 ## Conventions
 

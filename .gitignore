@@ -45,3 +45,6 @@ next-env.d.ts
 
 # vitest cache
 /.vitest
+
+# image download staging
+/.image-staging/

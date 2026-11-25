@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { connection } from "next/server";
 import { Suspense } from "react";
+import { Photo } from "@/components/photo";
 import { DifficultyBadge, Skeleton } from "@/components/ui";
 import { db } from "@/db";
 import { locales } from "@/i18n/config";
@@ -10,6 +11,7 @@ import { getDictionary, getLang } from "@/i18n/dictionaries";
 import { languageAlternates, plural } from "@/i18n/format";
 import { localize } from "@/i18n/localize";
 import { getTripWithDepartures } from "@/lib/bookings";
+import { tripCover } from "@/lib/images";
 import { addDays, formatDate, usd } from "@/lib/pricing";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/trips/[slug]">): Promise<Metadata> {
@@ -45,6 +47,13 @@ async function TripDetails({ params }: { params: PageProps<"/[lang]/trips/[slug]
   return (
     <article className="grid gap-10 lg:grid-cols-[1fr_320px]">
       <div>
+        <Photo
+          name={tripCover(trip.slug, trip.region)}
+          sizes="(min-width: 1024px) 680px, 100vw"
+          frame="aspect-[16/9] sm:aspect-[2/1]"
+          priority
+          className="mb-6"
+        />
         <div className="mb-2 flex items-center gap-3 text-sm text-muted">
           <span>
             {plural(common.ui.days, trip.durationDays, lang)} · {common.regions[trip.region]}

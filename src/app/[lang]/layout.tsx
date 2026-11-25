@@ -31,10 +31,13 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
   if (!isLocale(lang)) notFound();
   const common = await getDictionary("common", lang);
   const links = [
+    { href: `/${lang}/whats-included`, label: common.nav.whatsIncluded },
+    { href: `/${lang}/experiences`, label: common.nav.experiences },
     { href: `/${lang}/about`, label: common.nav.about },
     { href: `/${lang}/yurt-life`, label: common.nav.yurtLife },
     { href: `/${lang}/faq`, label: common.nav.faq },
   ];
+  const footerLinks = [...links, { href: `/${lang}/photo-credits`, label: common.nav.photoCredits }];
 
   return (
     <html lang={lang} className={`${geistSans.variable} h-full antialiased`}>
@@ -62,7 +65,7 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
         <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-8">{children}</main>
         <footer className="border-t border-border py-6 text-center text-xs text-muted">
           <div className="mb-2 flex flex-wrap justify-center gap-x-4 gap-y-1">
-            {links.map((l) => (
+            {footerLinks.map((l) => (
               <Link key={l.href} href={l.href} className="hover:text-foreground">
                 {l.label}
               </Link>

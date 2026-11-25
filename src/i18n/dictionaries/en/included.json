@@ -1,0 +1,135 @@
+{
+  "photo": {
+    "credit": "Photo: {author}, {license}"
+  },
+  "whatsIncluded": {
+    "metaTitle": "What's included",
+    "metaDescription": "What every NomadTrip journey includes: yurt stays, meals, transport, local guides and host families, activities and support, and what is not included.",
+    "title": "What's included",
+    "intro": "Every NomadTrip journey is built around the same essentials: yurt stays, meals, local guides and transport in Kyrgyzstan. Here is what that means in practice.",
+    "sections": {
+      "accommodation": {
+        "title": "Accommodation",
+        "body": "Every night of every trip is spent in a yurt camp run by a local family.",
+        "points": {
+          "1": "A yurt has a wooden lattice frame, a felt cover and a shanyrak, the ring at the top of the roof that lets in light and, at night, sometimes the stars.",
+          "2": "You sleep on tushuk mattresses, thick felt-and-wool mattresses laid on the floor, with blankets provided.",
+          "3": "Many yurts have a small stove, which camps usually light at night when it gets cold.",
+          "4": "Camps usually have shared toilets and, at some, simple shared showers. Facilities are basic and vary between camps.",
+          "5": "Yurts are shared with other travelers by default. A private yurt for your group is available for a supplement when you book."
+        }
+      },
+      "meals": {
+        "title": "Meals",
+        "body": "Meals are included on trip days and are cooked by your hosts at the camps.",
+        "points": {
+          "1": "Expect traditional, hearty food: bread, dairy, soups and stews, plenty of meat, fresh boorsok (fried dough) and tea.",
+          "2": "Kymyz, fermented mare's milk, may be offered as a welcome. You are free to decline or take just a sip.",
+          "3": "Vegetarian, vegan, halal, gluten-free and other needs can be noted when you book. Options in remote camps can be limited, so early notice helps.",
+          "4": "Tea is served with meals, and your guide will tell you about drinking water at each camp."
+        }
+      },
+      "transport": {
+        "title": "Transport",
+        "body": "Transport within Kyrgyzstan is included, between camps and to the places on your itinerary.",
+        "points": {
+          "1": "Road transfers use vehicles suited to the route. Some routes follow rough mountain roads.",
+          "2": "Airport pickup from Bishkek (Manas, FRU) or Osh (OSS) is available at no extra charge. Choose it when you book.",
+          "3": "On riding trips you cover part of the route on horseback."
+        }
+      },
+      "guides": {
+        "title": "Guides and hosts",
+        "body": "Local guides and host families look after you from the first day to the last.",
+        "points": {
+          "1": "Every trip has a guide who knows the route, the weather and the people, and who helps with language and customs.",
+          "2": "Camps are run by local herder families who cook, host and share their way of life with you.",
+          "3": "If you would like a guide who speaks a particular language, tell us before you book and we will explain what is possible."
+        }
+      },
+      "activities": {
+        "title": "Activities",
+        "body": "Riding, walking and cultural visits are part of each trip's itinerary.",
+        "points": {
+          "1": "Horse rides with local handlers. Horses on our trips are used to beginners, so tell us your experience level.",
+          "2": "Hikes and walks from gentle to demanding. The difficulty level is listed on every trip.",
+          "3": "Cultural visits and demonstrations, such as eagle hunting or felt-making, where they are part of the itinerary.",
+          "4": "The day-by-day plan on each trip page shows exactly what is planned."
+        }
+      },
+      "safety": {
+        "title": "Safety and support",
+        "body": "Your guide is with you throughout the trip, and a first-aid kit travels with the group.",
+        "points": {
+          "1": "Your guide knows the route and the weather and helps if plans need to change.",
+          "2": "Coverage is often absent in high valleys and at remote camps, so expect to be offline for part of the trip.",
+          "3": "Tell us about health conditions when you book. If you have heart, lung or other concerns, talk to your doctor before a high-altitude trip."
+        }
+      }
+    },
+    "notIncludedTitle": "Not included",
+    "notIncludedIntro": "These are not part of the trip price. Please arrange them yourself.",
+    "notIncluded": {
+      "1": "International flights to and from Kyrgyzstan",
+      "2": "Travel insurance",
+      "3": "Visas and entry formalities",
+      "4": "Alcoholic drinks",
+      "5": "Tips for guides and hosts",
+      "6": "Personal expenses, such as souvenirs and extra snacks"
+    },
+    "cta": "Browse trips"
+  },
+  "experiences": {
+    "metaTitle": "Experiences",
+    "metaDescription": "Horse riding, eagle hunting, felt-making, nomad cooking, trekking, mountain lakes, stargazing and komuz music on NomadTrip journeys.",
+    "title": "Experiences",
+    "intro": "The moments you will remember from a yurt journey: on horseback, around the table and under the stars.",
+    "tripsLabel": "On these trips",
+    "noTrips": "Ask us if you would like to add this to your trip.",
+    "items": {
+      "horseRiding": {
+        "title": "Horse riding",
+        "body": "Ride along lake shores and over mountain passes with local herders and handlers. Horses on our trips are used to beginners, and a handler helps you along. Tell us your experience level when you book."
+      },
+      "eagleHunting": {
+        "title": "Eagle hunting",
+        "body": "Meet a berkutchi, a traditional eagle hunter, and watch a demonstration with a golden eagle. It is a living tradition of Kyrgyz herders."
+      },
+      "feltMaking": {
+        "title": "Felt-making",
+        "body": "See how wool is laid out, wetted and rolled into felt, the material of yurt walls and floors. Felt is also made into the shyrdak and ala-kiyiz rugs you will see in every yurt."
+      },
+      "nomadCooking": {
+        "title": "Nomad cooking and kymyz",
+        "body": "Share the table with your hosts: fresh boorsok, bread, tea and, if you like, a sip of kymyz, fermented mare's milk. Meals are traditional, hearty and cooked by the camp family."
+      },
+      "trekking": {
+        "title": "Trekking and passes",
+        "body": "Walk through spruce forest, river valleys and high passes. Walks range from gentle to demanding at altitude, so choose the difficulty that suits you."
+      },
+      "mountainLakes": {
+        "title": "Mountain lakes",
+        "body": "Alpine lakes such as Song-Kul, Kel-Suu, Sary-Chelek and Tulpar-Kol are highlights of several routes. Expect water, pasture and peaks far from the road."
+      },
+      "stargazing": {
+        "title": "Stargazing",
+        "body": "Far from city lights, nights at altitude are dark. On a clear night you can see the Milky Way from your yurt door."
+      },
+      "komuz": {
+        "title": "Komuz music",
+        "body": "The komuz is a three-stringed Kyrgyz lute that accompanies songs and epic tales. Evenings with your hosts can include music and storytelling."
+      }
+    },
+    "cta": "Browse trips"
+  },
+  "credits": {
+    "metaTitle": "Photo credits",
+    "metaDescription": "Authors, licenses and sources of every photograph used on NomadTrip.",
+    "title": "Photo credits",
+    "intro": "The photographs on this site are freely licensed images from Wikimedia Commons. Thank you to the photographers who shared them.",
+    "author": "Author",
+    "license": "License",
+    "source": "Source: Wikimedia Commons",
+    "publicDomain": "Public domain"
+  }
+}
