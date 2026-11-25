@@ -1,3 +1,4 @@
+import Form from "next/form";
 import Link from "next/link";
 import type { Locale } from "@/i18n/config";
 import type { Dictionaries } from "@/i18n/dictionaries";
@@ -19,7 +20,11 @@ export function TripFiltersForm({
   return (
     // Keyed by the active filters: inputs use defaultValue, which only applies on mount, so a
     // client-side navigation (e.g. "Clear filters") must remount the form to show the new values.
-    <form key={JSON.stringify(filters)} method="get" action={`/${lang}`} className="card mb-6 grid gap-4 border-t-4 border-t-primary p-5 sm:grid-cols-2 lg:grid-cols-4" aria-label={t.title}>
+    // (`key` lives on this wrapper because next/form doesn't accept it on a string-action <Form>.)
+    <div key={JSON.stringify(filters)}>
+    {/* next/form: GET submit becomes a client-side navigation (no full reload, scroll position kept);
+        without JavaScript it is still a plain GET form. */}
+    <Form action={`/${lang}`} scroll={false} className="card mb-6 grid gap-4 border-t-4 border-t-primary p-5 sm:grid-cols-2 lg:grid-cols-4" aria-label={t.title}>
       <div>
         <label htmlFor="f-region" className="label">{t.region}</label>
         <select id="f-region" name="region" defaultValue={filters.region ?? ""} className="field">
@@ -68,6 +73,7 @@ export function TripFiltersForm({
           <Link href={`/${lang}#trips`} className="text-sm text-muted underline underline-offset-4 hover:text-accent">{t.clear}</Link>
         ) : null}
       </div>
-    </form>
+    </Form>
+    </div>
   );
 }

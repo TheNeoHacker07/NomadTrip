@@ -95,6 +95,28 @@ test.describe("home filters (en)", () => {
     await expectList(page, order(rows.filter((t) => t.price_per_person_usd <= max && t.price_per_person_usd >= prices[1]), "soonest"));
   });
 
+  test("applying filters updates the list in place: no full page reload, scroll position kept", async ({ page }) => {
+    await page.goto(`/${lang}`);
+    await page.locator("#f-region").scrollIntoViewIfNeeded();
+    // A marker on window survives client-side navigation but not a full document reload.
+    await page.evaluate(() => ((window as unknown as { __noReload?: boolean }).__noReload = true));
+    const scrollBefore = await page.evaluate(() => window.scrollY);
+    expect(scrollBefore).toBeGreaterThan(0);
+
+    const region = allTrips()[0].region;
+    await page.locator("#f-region").selectOption(region);
+    await apply(page);
+    await expect(page).toHaveURL(new RegExp(`[?&]region=${region}`));
+    await expect(page.locator("#f-region")).toHaveValue(region);
+
+    expect(await page.evaluate(() => (window as unknown as { __noReload?: boolean }).__noReload)).toBe(true);
+    expect(Math.abs((await page.evaluate(() => window.scrollY)) - scrollBefore)).toBeLessThan(200);
+
+    // Back returns to the unfiltered list (filters push history entries).
+    await page.goBack();
+    await expect(page).not.toHaveURL(/region=/);
+  });
+
   test("date range uses open departures only (a sold-out departure drops the trip from that window)", async ({ page }) => {
     // Window around the victim's second departure (read from the DB, so it follows the seeded season);
     // fill that departure so only it is affected.
