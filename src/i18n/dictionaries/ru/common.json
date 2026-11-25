@@ -6,6 +6,9 @@
   },
   "nav": {
     "allTrips": "Все поездки",
+    "about": "О нас",
+    "yurtLife": "Жизнь в юрте",
+    "faq": "Вопросы",
     "language": "Язык"
   },
   "footer": {
