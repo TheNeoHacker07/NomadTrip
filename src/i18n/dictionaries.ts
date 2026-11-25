@@ -8,6 +8,8 @@ import type trip from "./dictionaries/en/trip.json";
 import type booking from "./dictionaries/en/booking.json";
 import type confirmation from "./dictionaries/en/confirmation.json";
 import type admin from "./dictionaries/en/admin.json";
+import type filters from "./dictionaries/en/filters.json";
+import type content from "./dictionaries/en/content.json";
 
 /** Namespace -> dictionary shape, typed from the `en` files. */
 export type Dictionaries = {
@@ -17,6 +19,8 @@ export type Dictionaries = {
   booking: typeof booking;
   confirmation: typeof confirmation;
   admin: typeof admin;
+  filters: typeof filters;
+  content: typeof content;
 };
 export type Namespace = keyof Dictionaries;
 // Keeps config.namespaces and the typed dictionaries in lockstep.
@@ -31,6 +35,8 @@ const loaders = {
     booking: () => import("./dictionaries/en/booking.json"),
     confirmation: () => import("./dictionaries/en/confirmation.json"),
     admin: () => import("./dictionaries/en/admin.json"),
+    filters: () => import("./dictionaries/en/filters.json"),
+    content: () => import("./dictionaries/en/content.json"),
   },
   ru: {
     common: () => import("./dictionaries/ru/common.json"),
@@ -39,6 +45,8 @@ const loaders = {
     booking: () => import("./dictionaries/ru/booking.json"),
     confirmation: () => import("./dictionaries/ru/confirmation.json"),
     admin: () => import("./dictionaries/ru/admin.json"),
+    filters: () => import("./dictionaries/ru/filters.json"),
+    content: () => import("./dictionaries/ru/content.json"),
   },
   ky: {
     common: () => import("./dictionaries/ky/common.json"),
@@ -47,6 +55,8 @@ const loaders = {
     booking: () => import("./dictionaries/ky/booking.json"),
     confirmation: () => import("./dictionaries/ky/confirmation.json"),
     admin: () => import("./dictionaries/ky/admin.json"),
+    filters: () => import("./dictionaries/ky/filters.json"),
+    content: () => import("./dictionaries/ky/content.json"),
   },
 } satisfies Record<Locale, { [N in Namespace]: () => Promise<{ default: Dictionaries[N] }> }>;
 
