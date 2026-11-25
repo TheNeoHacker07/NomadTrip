@@ -11,6 +11,8 @@ import type admin from "./dictionaries/en/admin.json";
 import type filters from "./dictionaries/en/filters.json";
 import type content from "./dictionaries/en/content.json";
 import type included from "./dictionaries/en/included.json";
+import type manage from "./dictionaries/en/manage.json";
+import type inquiry from "./dictionaries/en/inquiry.json";
 import type discover from "./dictionaries/en/discover.json";
 
 /** Namespace -> dictionary shape, typed from the `en` files. */
@@ -24,6 +26,8 @@ export type Dictionaries = {
   filters: typeof filters;
   content: typeof content;
   included: typeof included;
+  manage: typeof manage;
+  inquiry: typeof inquiry;
   discover: typeof discover;
 };
 export type Namespace = keyof Dictionaries;
@@ -42,6 +46,8 @@ const loaders = {
     filters: () => import("./dictionaries/en/filters.json"),
     content: () => import("./dictionaries/en/content.json"),
     included: () => import("./dictionaries/en/included.json"),
+    manage: () => import("./dictionaries/en/manage.json"),
+    inquiry: () => import("./dictionaries/en/inquiry.json"),
     discover: () => import("./dictionaries/en/discover.json"),
   },
   ru: {
@@ -54,6 +60,8 @@ const loaders = {
     filters: () => import("./dictionaries/ru/filters.json"),
     content: () => import("./dictionaries/ru/content.json"),
     included: () => import("./dictionaries/ru/included.json"),
+    manage: () => import("./dictionaries/ru/manage.json"),
+    inquiry: () => import("./dictionaries/ru/inquiry.json"),
     discover: () => import("./dictionaries/ru/discover.json"),
   },
   ky: {
@@ -66,6 +74,8 @@ const loaders = {
     filters: () => import("./dictionaries/ky/filters.json"),
     content: () => import("./dictionaries/ky/content.json"),
     included: () => import("./dictionaries/ky/included.json"),
+    manage: () => import("./dictionaries/ky/manage.json"),
+    inquiry: () => import("./dictionaries/ky/inquiry.json"),
     discover: () => import("./dictionaries/ky/discover.json"),
   },
 } satisfies Record<Locale, { [N in Namespace]: () => Promise<{ default: Dictionaries[N] }> }>;

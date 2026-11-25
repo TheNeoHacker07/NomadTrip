@@ -146,6 +146,7 @@ export function BookingForm({ lang, dict, departureId, departureDate, maxTravele
 
   return (
     <form
+      method="post"
       ref={formRef}
       noValidate
       className="mt-8 space-y-8"

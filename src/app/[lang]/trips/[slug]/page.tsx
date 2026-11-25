@@ -42,11 +42,23 @@ export default function TripPage({ params }: PageProps<"/[lang]/trips/[slug]">) 
 async function TripDetails({ params }: { params: PageProps<"/[lang]/trips/[slug]">["params"] }) {
   await connection();
   const { slug } = await params;
-  const [lang, common, t] = await Promise.all([getLang(), getDictionary("common"), getDictionary("trip")]);
+  const [lang, common, t, inquiry] = await Promise.all([
+    getLang(),
+    getDictionary("common"),
+    getDictionary("trip"),
+    getDictionary("inquiry"),
+  ]);
   const data = getTripWithDepartures(db, slug);
   if (!data) notFound();
   const { trip, departures } = data;
   const itinerary = localize(trip.itinerary, lang);
+  const customLink = (
+    <p className="mt-3 text-sm">
+      <Link href={`/${lang}/inquiry?trip=${trip.slug}`} className="font-semibold text-accent hover:underline">
+        {inquiry.tripLink}
+      </Link>
+    </p>
+  );
 
   return (
     <article className="grid gap-10 lg:grid-cols-[1fr_320px]">
@@ -101,7 +113,10 @@ async function TripDetails({ params }: { params: PageProps<"/[lang]/trips/[slug]
           <p className="mt-1 text-xs text-muted">{t.priceIncludes}</p>
           <h2 className="mt-5 mb-2 text-sm font-semibold">{t.upcomingDepartures}</h2>
           {departures.length === 0 ? (
-            <p className="text-sm text-muted">{t.noDepartures}</p>
+            <>
+              <p className="text-sm text-muted">{t.noDepartures}</p>
+              {customLink}
+            </>
           ) : (
             <ul className="space-y-2">
               {departures.map((d) => (
@@ -123,6 +138,7 @@ async function TripDetails({ params }: { params: PageProps<"/[lang]/trips/[slug]
               ))}
             </ul>
           )}
+          {departures.length > 0 && customLink}
         </div>
       </aside>
       {/* discovery-seo: structured data + similar trips */}

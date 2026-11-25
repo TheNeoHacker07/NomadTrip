@@ -64,7 +64,7 @@ const travelerList = <T extends z.ZodType>(item: T) =>
     .min(1, { error: "min_travelers" })
     .max(MAX_TRAVELERS, { error: "max_travelers" });
 
-const phoneSchema = z
+export const phoneSchema = z
   .string()
   .trim()
   .regex(/^\+?[0-9\s()-]{7,20}$/, { error: "invalid_phone" });

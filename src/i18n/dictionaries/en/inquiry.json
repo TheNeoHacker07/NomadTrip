@@ -1,0 +1,45 @@
+{
+  "metaTitle": "Request a custom trip",
+  "title": "Request a custom trip",
+  "intro": "Tell us when you'd like to travel and what you have in mind. We'll reply with a plan and a price.",
+  "tripLink": "Want different dates? Request a custom trip",
+  "aboutTrip": "About the trip: {trip}",
+  "fields": {
+    "name": "Your name",
+    "email": "Email",
+    "phone": "Phone (optional)",
+    "phonePlaceholder": "+996 555 123 456",
+    "messenger": "Preferred messenger",
+    "trip": "Trip",
+    "anyTrip": "Not sure yet — suggest something",
+    "preferredStart": "Preferred start date (optional)",
+    "durationDays": "Number of days (optional)",
+    "groupSize": "Number of travelers",
+    "message": "Your wishes",
+    "messagePlaceholder": "Dates, places, interests, anything we should know…",
+    "consent": "I agree that NomadTrip stores these details to answer my request."
+  },
+  "submit": "Send request",
+  "sending": "Sending…",
+  "errors": {
+    "required": "Required",
+    "invalid_email": "Enter a valid email",
+    "invalid_phone": "Enter a phone number with country code",
+    "invalid_date": "Enter a valid date",
+    "date_not_future": "The date must be in the future",
+    "duration_range": "Enter a number of days from 2 to 30",
+    "group_range": "Enter a group size from 1 to 30",
+    "message_too_long": "Please keep it under 2000 characters",
+    "consent_required": "Please accept so we can answer you",
+    "trip_not_found": "This trip no longer exists",
+    "invalid": "Please check this field",
+    "check_fields": "Please check the highlighted fields.",
+    "invalid_submission": "Invalid submission.",
+    "too_many": "Too many requests. Please try again later."
+  },
+  "success": {
+    "title": "Thank you!",
+    "text": "We've received your request and will reply within 24 hours via your preferred messenger.",
+    "back": "Back to trips"
+  }
+}

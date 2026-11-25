@@ -1,0 +1,42 @@
+{
+  "metaTitle": "Manage my booking",
+  "title": "Manage my booking",
+  "intro": "Enter your booking reference and the email you booked with to see your booking.",
+  "form": {
+    "reference": "Booking reference",
+    "referenceHint": "It was shown on the confirmation page after you booked.",
+    "email": "Email used for the booking",
+    "submit": "Show my booking",
+    "sending": "Looking up…"
+  },
+  "errors": {
+    "notFound": "We couldn't find a booking with those details. Check the reference and email and try again.",
+    "tooMany": "Too many attempts. Please try again in a few minutes.",
+    "invalid": "Please fill in both fields."
+  },
+  "result": {
+    "title": "Your booking",
+    "status": "Status",
+    "trip": "Trip",
+    "dates": "Dates",
+    "travelers": "Travelers",
+    "yurt": "Yurt",
+    "yurtPrivate": "Private yurt",
+    "yurtShared": "Shared yurt",
+    "estimatedTotal": "Estimated total",
+    "pickup": "Airport pickup",
+    "pickupNeeded": "Requested at {airport}",
+    "pickupNotNeeded": "Not requested",
+    "flight": "Flight {flight}",
+    "viewTrip": "View trip",
+    "lookAnother": "Look up another booking",
+    "contactNote": "To change or cancel a booking, reply to the message we sent you."
+  },
+  "airports": {
+    "FRU": "Bishkek (Manas, FRU)",
+    "OSS": "Osh (OSS)",
+    "other": "overland / other"
+  },
+  "calendar": "Add to calendar",
+  "calendarDescription": "Booking {reference}. Trip details: {url}"
+}

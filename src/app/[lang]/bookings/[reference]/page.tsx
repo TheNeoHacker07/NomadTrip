@@ -26,7 +26,12 @@ export default function BookingPage({ params }: PageProps<"/[lang]/bookings/[ref
 async function BookingSummary({ params }: { params: PageProps<"/[lang]/bookings/[reference]">["params"] }) {
   await connection();
   const { reference } = await params;
-  const [lang, common, c] = await Promise.all([getLang(), getDictionary("common"), getDictionary("confirmation")]);
+  const [lang, common, c, manage] = await Promise.all([
+    getLang(),
+    getDictionary("common"),
+    getDictionary("confirmation"),
+    getDictionary("manage"),
+  ]);
   const data = /^NT-[A-Z2-9]{8}$/.test(reference) ? getBookingByReference(db, reference) : null;
   if (!data) notFound();
   const { booking, departure, trip, travelers } = data;
@@ -51,7 +56,12 @@ async function BookingSummary({ params }: { params: PageProps<"/[lang]/bookings/
         <Item label={c.yurt} value={booking.yurtArrangement === "private" ? c.yurtPrivate : c.yurtShared} />
         <Item label={c.estimatedTotal} value={usd(booking.totalPriceUsd)} />
       </dl>
-      <Link href={`/${lang}`} className="btn mt-8 w-full">
+      {booking.status !== "cancelled" && (
+        <a href={`/${lang}/bookings/${booking.reference}/calendar.ics`} className="mt-6 block text-center text-sm font-semibold text-accent hover:underline">
+          {manage.calendar}
+        </a>
+      )}
+      <Link href={`/${lang}`} className="btn mt-6 w-full">
         {c.backToTrips}
       </Link>
     </div>
