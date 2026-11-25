@@ -30,6 +30,11 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
   const { lang } = await params;
   if (!isLocale(lang)) notFound();
   const common = await getDictionary("common", lang);
+  const links = [
+    { href: `/${lang}/about`, label: common.nav.about },
+    { href: `/${lang}/yurt-life`, label: common.nav.yurtLife },
+    { href: `/${lang}/faq`, label: common.nav.faq },
+  ];
 
   return (
     <html lang={lang} className={`${geistSans.variable} h-full antialiased`}>
@@ -39,10 +44,15 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
             <Link href={`/${lang}`} className="text-lg font-bold tracking-tight">
               Nomad<span className="text-accent">Trip</span>
             </Link>
-            <div className="flex items-center gap-4">
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
               <Link href={`/${lang}#trips`} className="text-sm text-muted hover:text-foreground">
                 {common.nav.allTrips}
               </Link>
+              {links.map((l) => (
+                <Link key={l.href} href={l.href} className="text-sm text-muted hover:text-foreground">
+                  {l.label}
+                </Link>
+              ))}
               <Suspense fallback={null}>
                 <LanguageSwitcher lang={lang} labels={localeLabels} ariaLabel={common.nav.language} />
               </Suspense>
@@ -50,7 +60,16 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
           </nav>
         </header>
         <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-8">{children}</main>
-        <footer className="border-t border-border py-6 text-center text-xs text-muted">{common.footer.tagline}</footer>
+        <footer className="border-t border-border py-6 text-center text-xs text-muted">
+          <div className="mb-2 flex flex-wrap justify-center gap-x-4 gap-y-1">
+            {links.map((l) => (
+              <Link key={l.href} href={l.href} className="hover:text-foreground">
+                {l.label}
+              </Link>
+            ))}
+          </div>
+          {common.footer.tagline}
+        </footer>
       </body>
     </html>
   );

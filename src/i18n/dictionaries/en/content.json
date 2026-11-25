@@ -1,1 +1,156 @@
-{}
+{
+  "about": {
+    "metaTitle": "About us",
+    "metaDescription": "Who we are, how our yurt trips work and how booking works at NomadTrip.",
+    "title": "About NomadTrip",
+    "intro": "We organise yurt journeys across Kyrgyzstan, from two-day escapes to a full month in the Tian Shan.",
+    "whoTitle": "Who we are",
+    "who": {
+      "1": "NomadTrip is a small team that sends travellers into the Kyrgyz mountains and steppe, with every night spent in a traditional yurt camp.",
+      "2": "We work directly with herder families and local guides, so the people you meet are the people who live and work in these valleys."
+    },
+    "howTitle": "How our trips work",
+    "how": {
+      "1": {
+        "title": "Small groups",
+        "body": "Departures are kept small, so camps stay quiet and you are a guest at a family's table, not part of a crowd."
+      },
+      "2": {
+        "title": "Nomad host families",
+        "body": "Camps are run by local families who graze their animals on the summer pastures. They cook, host and share their way of life with you."
+      },
+      "3": {
+        "title": "Local guides",
+        "body": "Every trip has a guide who knows the route, the weather and the people, and who helps with language and customs."
+      }
+    },
+    "bookingTitle": "How booking works",
+    "steps": {
+      "1": {
+        "title": "Send a request",
+        "body": "Choose a trip and a departure date, then tell us how many travellers you are. The request is not a payment."
+      },
+      "2": {
+        "title": "We confirm within 24 hours",
+        "body": "We check seats and details with our local partners and confirm your booking by email."
+      },
+      "3": {
+        "title": "Receive payment details",
+        "body": "Once confirmed, we send you the payment details and next steps."
+      }
+    },
+    "bookingNote": "If something is unclear, contact us before you book and we will help.",
+    "cta": "Browse trips"
+  },
+  "yurtLife": {
+    "metaTitle": "Yurt life",
+    "metaDescription": "What a night in a Kyrgyz yurt is like, how to behave as a guest and what to pack.",
+    "title": "Yurt life",
+    "intro": "A yurt, or boz üy, is the traditional home of Kyrgyz herders. Here is what to expect.",
+    "nightTitle": "A night in a yurt",
+    "night": {
+      "1": {
+        "title": "The shanyrak",
+        "body": "The wooden ring at the top of the roof is the shanyrak, a symbol of the Kyrgyz home. It lets in light and smoke, and at night you may see the stars through it."
+      },
+      "2": {
+        "title": "Tushuk mattresses",
+        "body": "You sleep on tushuks, thick felt-and-wool mattresses laid on the floor, with blankets provided. They are warm and more comfortable than they look."
+      },
+      "3": {
+        "title": "The stove",
+        "body": "Many yurts have a small stove for the evening. Camps usually light it at night when it gets cold."
+      },
+      "4": {
+        "title": "Toilets and washing",
+        "body": "Camps usually have shared toilets and, at some, simple shared showers. Facilities are basic and vary between camps, especially in the high mountains."
+      },
+      "5": {
+        "title": "Cold nights",
+        "body": "At altitude, nights are cold even in summer, and temperatures can drop close to freezing at the highest camps. Bring warm layers."
+      }
+    },
+    "etiquetteTitle": "Etiquette for guests",
+    "etiquette": {
+      "1": {
+        "title": "Shoes off",
+        "body": "Take off your shoes before stepping onto the felt floor of a yurt."
+      },
+      "2": {
+        "title": "Seating",
+        "body": "Sit where your host invites you. The place opposite the door is for honoured guests. Avoid pointing your feet at others or at the hearth."
+      },
+      "3": {
+        "title": "Bread",
+        "body": "Bread is respected in Kyrgyz homes. Do not drop it or leave it face down, and eat what you take."
+      },
+      "4": {
+        "title": "Kymyz",
+        "body": "Fermented mare's milk may be offered as a gesture of welcome. You may politely decline or take just a sip."
+      }
+    },
+    "packTitle": "What to pack",
+    "pack": {
+      "1": "Warm layers and a warm hat for cold nights",
+      "2": "A waterproof jacket",
+      "3": "Sturdy walking shoes or boots",
+      "4": "Sun hat, sunglasses and sunscreen",
+      "5": "A sleeping-bag liner, if you like",
+      "6": "A headlamp or torch",
+      "7": "Toiletries and a small towel",
+      "8": "Any personal medication",
+      "9": "Cash and a power bank"
+    },
+    "cta": "Browse trips"
+  },
+  "faq": {
+    "metaTitle": "FAQ",
+    "metaDescription": "Answers about altitude, weather, fitness, kids, diets, horses, connectivity, money and visas.",
+    "title": "Frequently asked questions",
+    "intro": "Quick answers to the questions we hear most.",
+    "items": {
+      "1": {
+        "q": "How high do the trips go?",
+        "a": "Some trips reach high mountain lakes and passes at around 3,000 m or more, such as Song-Kul at about 3,000 m. Travel slowly on the first day and drink water. If you have heart, lung or other health concerns, talk to your doctor first."
+      },
+      "2": {
+        "q": "What is the weather like and when should I go?",
+        "a": "The best season for high-altitude camps is June to September. Days can be warm and nights cold, and weather in the mountains changes quickly, so bring layers."
+      },
+      "3": {
+        "q": "How fit do I need to be?",
+        "a": "Each trip lists a difficulty level. Easy trips involve gentle walks and rides. Challenging trips involve long days, rough roads or trekking at altitude."
+      },
+      "4": {
+        "q": "Can I bring children?",
+        "a": "Many easy trips suit families. Facilities in camps are basic, so choose a trip that fits your children's age and tell us about them when you book."
+      },
+      "5": {
+        "q": "Can you cater for special diets?",
+        "a": "Tell us about vegetarian, allergy or other dietary needs when you book. Traditional meals include a lot of meat, bread and dairy, and options in remote camps can be limited, so early notice helps."
+      },
+      "6": {
+        "q": "Can beginners ride horses?",
+        "a": "Yes. Horses on our trips are used to beginners, and a local handler helps. Tell us your experience level and any concerns."
+      },
+      "7": {
+        "q": "Will I have phone signal and internet?",
+        "a": "Coverage is good near towns but often absent in high valleys and at remote camps. Expect to be offline for some of the trip."
+      },
+      "8": {
+        "q": "How do money and cards work?",
+        "a": "Cards are accepted in cities, but camps and villages mostly use cash in Kyrgyz som. Carry some cash and ask us if you are unsure."
+      },
+      "9": {
+        "q": "Do I need a visa?",
+        "a": "Entry rules depend on your nationality and change over time. Please check the official Kyrgyz government or consular sources, or ask your embassy."
+      },
+      "10": {
+        "q": "What about payment terms and cancellation?",
+        "a": "Contact us before booking to ask about payment terms and what happens if your plans change. We will explain how they apply to your trip."
+      }
+    },
+    "contactNote": "Still have a question? Contact us and we will help.",
+    "cta": "Browse trips"
+  }
+}
