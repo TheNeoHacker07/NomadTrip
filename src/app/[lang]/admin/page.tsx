@@ -7,7 +7,7 @@ import { isAdminAuthorization } from "@/lib/admin-auth";
 import { getDictionary, getLang } from "@/i18n/dictionaries";
 import { interpolate, plural } from "@/i18n/format";
 import { localize } from "@/i18n/localize";
-import { bookingStatusCounts, listBookingsFiltered, listTripsAdmin, parseBookingFilters } from "@/lib/admin";
+import { bookingStatusCounts, listBookingsFiltered, listTripOptions, parseBookingFilters } from "@/lib/admin";
 import { connection } from "next/server";
 import { bookingStatuses } from "@/db/schema";
 import { formatDate, usd } from "@/lib/pricing";
@@ -47,7 +47,7 @@ async function BookingList({ searchParams }: { searchParams: PageProps<"/[lang]/
   const filters = parseBookingFilters(await searchParams);
   const rows = listBookingsFiltered(db, filters);
   const counts = bookingStatusCounts(db, filters);
-  const tripOptions = listTripsAdmin(db);
+  const tripOptions = listTripOptions(db);
   const hasFilters = Object.values(filters).some((v) => v !== undefined);
   const statusHref = (status?: string) => {
     const p = new URLSearchParams();
@@ -82,7 +82,7 @@ async function BookingList({ searchParams }: { searchParams: PageProps<"/[lang]/
           <label className="label" htmlFor="f-trip">{a.filters.trip}</label>
           <select id="f-trip" name="trip" defaultValue={filters.trip ?? ""} className="field">
             <option value="">{a.filters.allTrips}</option>
-            {tripOptions.map(({ trip }) => (
+            {tripOptions.map((trip) => (
               <option key={trip.id} value={trip.id}>{localize(trip.title, lang)}</option>
             ))}
           </select>

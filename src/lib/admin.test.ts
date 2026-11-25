@@ -74,6 +74,25 @@ describe("trips", () => {
     expect(db.select().from(trips).all()).toHaveLength(2);
   });
 
+  it("locks the duration while non-cancelled bookings exist, but allows price edits", () => {
+    const id = mkTrip();
+    const dep = db.insert(departures).values({ tripId: id, startDate: "2027-06-01", capacity: 10 }).returning().get();
+    mkBooking(dep.id, 1, "cancelled");
+    expect(updateTrip(db, id, tripInput({}, 4))).toEqual({ ok: true, id }); // only cancelled bookings
+    mkBooking(dep.id, 1, "pending");
+    expect(updateTrip(db, id, tripInput({}, 5))).toEqual({ ok: false, error: "duration_locked" });
+    expect(getTripAdmin(db, id)!.trip.durationDays).toBe(4);
+    expect(updateTrip(db, id, tripInput({ pricePerPersonUsd: 777 }, 4))).toEqual({ ok: true, id });
+    expect(getTripAdmin(db, id)!.trip.pricePerPersonUsd).toBe(777);
+  });
+
+  it("labels itinerary issues by day, field and language", () => {
+    const bad = { ...day(1), title: { ...l("x"), ky: "" }, description: { ...l("x"), ru: "" } };
+    const r = tripInputSchema.safeParse(tripInput({ itinerary: [day(1), bad] }));
+    if (r.success) throw new Error("expected failure");
+    expect(tripIssues(r.error).fields).toEqual(expect.arrayContaining(["itinerary.2.title.ky", "itinerary.2.description.ru"]));
+  });
+
   it("update returns not_found for an unknown id", () => {
     expect(updateTrip(db, 999, tripInput())).toEqual({ ok: false, error: "not_found" });
   });
@@ -135,6 +154,26 @@ describe("departures", () => {
     expect(addDeparture(db, { tripId: 999, startDate: "2027-06-02", capacity: 5 }, NOW)).toEqual({ ok: false, error: "trip_not_found" });
   });
 
+  it("refuses duplicate dates per trip and dates more than 3 years ahead", () => {
+    const tripId = mkTrip();
+    const other = mkTrip("other");
+    expect(addDeparture(db, { tripId, startDate: "2027-06-01", capacity: 8 }, NOW)).toEqual({ ok: true });
+    expect(addDeparture(db, { tripId, startDate: "2027-06-01", capacity: 5 }, NOW)).toEqual({ ok: false, error: "duplicate_date" });
+    expect(addDeparture(db, { tripId: other, startDate: "2027-06-01", capacity: 5 }, NOW)).toEqual({ ok: true });
+    expect(addDeparture(db, { tripId, startDate: "2030-05-01", capacity: 5 }, NOW)).toEqual({ ok: true });
+    expect(addDeparture(db, { tripId, startDate: "2030-05-02", capacity: 5 }, NOW)).toEqual({ ok: false, error: "too_far" });
+  });
+
+  it("refuses capacity edits on departures starting today or earlier", () => {
+    const tripId = mkTrip();
+    const past = db.insert(departures).values({ tripId, startDate: "2027-04-01", capacity: 10 }).returning().get();
+    const today = db.insert(departures).values({ tripId, startDate: NOW, capacity: 10 }).returning().get();
+    const next = db.insert(departures).values({ tripId, startDate: "2027-05-02", capacity: 10 }).returning().get();
+    expect(updateDepartureCapacity(db, { departureId: past.id, capacity: 5 }, NOW)).toEqual({ ok: false, error: "departure_past" });
+    expect(updateDepartureCapacity(db, { departureId: today.id, capacity: 5 }, NOW)).toEqual({ ok: false, error: "departure_past" });
+    expect(updateDepartureCapacity(db, { departureId: next.id, capacity: 5 }, NOW)).toEqual({ ok: true });
+  });
+
   it("refuses capacity below seats taken, ignoring cancelled bookings", () => {
     const tripId = mkTrip();
     const dep = db.insert(departures).values({ tripId, startDate: "2027-06-01", capacity: 10 }).returning().get();
@@ -181,11 +220,22 @@ describe("booking filters", () => {
     expect(names({ to: "2027-06-30" })).toEqual(["Aida", "Bakyt"]);
     expect(names({ q: "BAKYT@exa" })).toEqual(["Bakyt"]);
     expect(names({ q: "555 100" })).toHaveLength(3);
+    expect(names({ q: "aida@EXAMPLE" })).toEqual(["Aida"]);
     expect(names({ q: "%" })).toEqual([]); // LIKE wildcards are escaped
     const ref = listBookingsFiltered(db, {})[0].booking.reference;
     expect(names({ q: ref.toLowerCase() })).toHaveLength(1);
     expect(names({ status: "bogus", trip: "x", from: "nope" })).toHaveLength(3); // bad params are dropped
     expect(bookingStatusCounts(db, {})).toEqual({ pending: 1, confirmed: 1, cancelled: 1 });
     expect(bookingStatusCounts(db, { trip: t1, status: "pending" })).toEqual({ pending: 1, confirmed: 1, cancelled: 0 });
+  });
+
+  it("searches Cyrillic names case-insensitively", () => {
+    const t = mkTrip();
+    const d = db.insert(departures).values({ tripId: t, startDate: "2027-06-01", capacity: 10 }).returning().get();
+    mkBooking(d.id, 1, "pending", "Айгуль Асанова");
+    const names = (q: string) => listBookingsFiltered(db, { q }).map((r) => r.booking.contactName);
+    expect(names("айгуль")).toEqual(["Айгуль Асанова"]);
+    expect(names("АСАНОВА")).toEqual(["Айгуль Асанова"]);
+    expect(names("zzz")).toEqual([]);
   });
 });

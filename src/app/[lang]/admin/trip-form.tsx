@@ -39,13 +39,24 @@ export function TripForm({
   const [days, setDays] = useState(() => initial.itinerary.map((d, i) => ({ key: i, day: d })));
   const [nextKey, setNextKey] = useState(initial.itinerary.length);
 
-  const localized = (name: string, label: string, values: Record<Lang, string>, rows: number) => (
+  const setDayField = (key: number, field: keyof Day, l: Lang, value: string) =>
+    setDays((ds) => ds.map((x) => (x.key === key ? { ...x, day: { ...x.day, [field]: { ...x.day[field], [l]: value } } } : x)));
+
+  // `onChange` makes the textareas controlled (itinerary days), so the state always matches what was typed and saved.
+  const localized = (
+    name: string, label: string, values: Record<Lang, string>, rows: number,
+    onChange?: (l: Lang, value: string) => void,
+  ) => (
     <fieldset className="space-y-2">
       <legend className="label">{label}</legend>
       {LANGS.map((l) => (
         <div key={l} className="flex items-start gap-2">
           <span className="mt-2 w-7 text-xs font-semibold text-muted">{l.toUpperCase()}</span>
-          <textarea name={`${name}.${l}`} defaultValue={values[l]} rows={rows} required lang={l} className="field" />
+          {onChange ? (
+            <textarea name={`${name}.${l}`} value={values[l]} onChange={(e) => onChange(l, e.target.value)} rows={rows} required lang={l} className="field" />
+          ) : (
+            <textarea name={`${name}.${l}`} defaultValue={values[l]} rows={rows} required lang={l} className="field" />
+          )}
         </div>
       ))}
     </fieldset>
@@ -105,9 +116,9 @@ export function TripForm({
                 {labels.removeDay}
               </button>
             </div>
-            {localized(`day.${i}.title`, labels.dayTitle, day.title, 1)}
-            {localized(`day.${i}.description`, labels.dayDescription, day.description, 3)}
-            {localized(`day.${i}.overnight`, labels.overnight, day.overnight, 1)}
+            {localized(`day.${i}.title`, labels.dayTitle, day.title, 1, (l, v) => setDayField(key, "title", l, v))}
+            {localized(`day.${i}.description`, labels.dayDescription, day.description, 3, (l, v) => setDayField(key, "description", l, v))}
+            {localized(`day.${i}.overnight`, labels.overnight, day.overnight, 1, (l, v) => setDayField(key, "overnight", l, v))}
           </div>
         ))}
         <button

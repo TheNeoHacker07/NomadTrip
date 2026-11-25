@@ -10,6 +10,8 @@ export function createDb(path: string) {
   sqlite.pragma("journal_mode = WAL");
   sqlite.pragma("foreign_keys = ON");
   sqlite.pragma("busy_timeout = 5000");
+  // SQLite's lower()/LIKE only fold ASCII; this folds Cyrillic too. Must pass NULL through.
+  sqlite.function("ulower", { deterministic: true }, (s) => (typeof s === "string" ? s.toLocaleLowerCase() : s));
   return drizzle({ client: sqlite, schema });
 }
 

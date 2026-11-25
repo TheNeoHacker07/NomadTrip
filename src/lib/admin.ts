@@ -1,4 +1,4 @@
-import { and, asc, desc, eq, gte, inArray, lte, or, sql, type SQL } from "drizzle-orm";
+import { and, asc, desc, eq, gte, inArray, lte, ne, or, sql, type SQL } from "drizzle-orm";
 import { z } from "zod";
 import type { Db } from "@/db";
 import { bookingStatuses, bookings, departures, travelers, trips, tripRegions, type BookingStatus } from "@/db/schema";
@@ -61,7 +61,7 @@ function tripValues(input: TripInput) {
   };
 }
 
-export type TripResult = { ok: true; id: number } | { ok: false; error: "slug_taken" | "not_found" };
+export type TripResult = { ok: true; id: number } | { ok: false; error: "slug_taken" | "not_found" | "duration_locked" };
 
 const slugTaken = (db: Pick<Db, "select">, slug: string, exceptId?: number) => {
   const row = db.select({ id: trips.id }).from(trips).where(eq(trips.slug, slug)).get();
@@ -91,8 +91,19 @@ export function updateTrip(db: Db, id: number, input: TripInput): TripResult {
   try {
     return db.transaction(
       (tx) => {
-        if (!tx.select({ id: trips.id }).from(trips).where(eq(trips.id, id)).get()) return { ok: false, error: "not_found" } as const;
+        const existing = tx.select({ durationDays: trips.durationDays }).from(trips).where(eq(trips.id, id)).get();
+        if (!existing) return { ok: false, error: "not_found" } as const;
         if (slugTaken(tx, values.slug, id)) return { ok: false, error: "slug_taken" } as const;
+        // Booked itineraries are a promise to travelers: the length (and so price basis) can't change under them.
+        if (values.durationDays !== existing.durationDays) {
+          const live = tx
+            .select({ n: sql<number>`count(*)` })
+            .from(bookings)
+            .innerJoin(departures, eq(departures.id, bookings.departureId))
+            .where(and(eq(departures.tripId, id), ne(bookings.status, "cancelled")))
+            .get();
+          if (live && live.n > 0) return { ok: false, error: "duration_locked" } as const;
+        }
         tx.update(trips).set(values).where(eq(trips.id, id)).run();
         return { ok: true, id } as const;
       },
@@ -125,23 +136,47 @@ export const deleteDepartureSchema = z.object({ departureId: z.coerce.number().i
 
 export type DepartureResult =
   | { ok: true }
-  | { ok: false; error: "trip_not_found" | "not_in_future" | "not_found" | "below_taken" | "has_bookings"; taken?: number };
+  | {
+      ok: false;
+      error: "trip_not_found" | "not_in_future" | "too_far" | "duplicate_date" | "departure_past" | "not_found" | "below_taken" | "has_bookings";
+      taken?: number;
+    };
+
+export const MAX_YEARS_AHEAD = 3;
+const latestStart = (now: string) => {
+  const d = new Date(`${now}T00:00:00Z`);
+  d.setUTCFullYear(d.getUTCFullYear() + MAX_YEARS_AHEAD);
+  return d.toISOString().slice(0, 10);
+};
 
 export function addDeparture(db: Db, raw: z.input<typeof addDepartureSchema>, now = today()): DepartureResult {
   const input = addDepartureSchema.parse(raw);
   if (input.startDate <= now) return { ok: false, error: "not_in_future" };
-  if (!db.select({ id: trips.id }).from(trips).where(eq(trips.id, input.tripId)).get()) return { ok: false, error: "trip_not_found" };
-  db.insert(departures).values(input).run();
-  return { ok: true };
+  if (input.startDate > latestStart(now)) return { ok: false, error: "too_far" };
+  return db.transaction(
+    (tx) => {
+      if (!tx.select({ id: trips.id }).from(trips).where(eq(trips.id, input.tripId)).get()) return { ok: false, error: "trip_not_found" } as const;
+      const dup = tx
+        .select({ id: departures.id })
+        .from(departures)
+        .where(and(eq(departures.tripId, input.tripId), eq(departures.startDate, input.startDate)))
+        .get();
+      if (dup) return { ok: false, error: "duplicate_date" } as const;
+      tx.insert(departures).values(input).run();
+      return { ok: true } as const;
+    },
+    { behavior: "immediate" },
+  );
 }
 
 /** Check and update share one IMMEDIATE transaction, so a concurrent booking can't slip between them. */
-export function updateDepartureCapacity(db: Db, raw: z.input<typeof updateCapacitySchema>): DepartureResult {
+export function updateDepartureCapacity(db: Db, raw: z.input<typeof updateCapacitySchema>, now = today()): DepartureResult {
   const { departureId, capacity } = updateCapacitySchema.parse(raw);
   return db.transaction(
     (tx) => {
-      const row = tx.select({ id: departures.id, taken: seatsTaken }).from(departures).where(eq(departures.id, departureId)).get();
+      const row = tx.select({ id: departures.id, startDate: departures.startDate, taken: seatsTaken }).from(departures).where(eq(departures.id, departureId)).get();
       if (!row) return { ok: false, error: "not_found" } as const;
+      if (row.startDate <= now) return { ok: false, error: "departure_past" } as const;
       if (capacity < row.taken) return { ok: false, error: "below_taken", taken: row.taken } as const;
       tx.update(departures).set({ capacity }).where(eq(departures.id, departureId)).run();
       return { ok: true } as const;
@@ -166,6 +201,11 @@ export function deleteDeparture(db: Db, raw: z.input<typeof deleteDepartureSchem
 }
 
 // ---------- Queries ----------
+
+/** Light id + title list for dropdowns (no per-trip count subqueries). */
+export function listTripOptions(db: Db) {
+  return db.select({ id: trips.id, title: trips.title }).from(trips).orderBy(asc(trips.id)).all();
+}
 
 export function listTripsAdmin(db: Db) {
   return db
@@ -227,9 +267,9 @@ function filterConditions(f: BookingFilters, withStatus: boolean): SQL[] {
   if (f.from) c.push(gte(departures.startDate, f.from));
   if (f.to) c.push(lte(departures.startDate, f.to));
   if (f.q) {
-    const p = `%${escapeLike(f.q.toLowerCase())}%`;
+    const p = `%${escapeLike(f.q.toLocaleLowerCase())}%`;
     const cols = [bookings.reference, bookings.contactName, bookings.email, bookings.phone];
-    c.push(or(...cols.map((col) => sql`lower(${col}) like ${p} escape '\\'`))!);
+    c.push(or(...cols.map((col) => sql`ulower(${col}) like ulower(${p}) escape '\\'`))!);
   }
   return c;
 }

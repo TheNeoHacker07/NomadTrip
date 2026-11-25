@@ -24,7 +24,7 @@ export function formMessages(a: Dictionaries["admin"]): FormMessages {
       slug: a.form.slug, pricePerPersonUsd: a.form.price, difficulty: a.form.difficulty, region: a.form.region,
       title: a.form.title, summary: a.form.summary, description: a.form.description, highlights: a.form.highlights,
       itinerary: a.form.itinerary, capacity: a.departures.capacity, startDate: a.departures.start,
-      dayTitle: a.form.dayTitle, overnight: a.form.overnight,
+      dayTitle: a.form.dayTitle, dayDescription: a.form.dayDescription, overnight: a.form.overnight,
     },
   };
 }

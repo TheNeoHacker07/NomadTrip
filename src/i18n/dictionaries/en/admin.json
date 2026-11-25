@@ -109,7 +109,11 @@
     "trip_not_found": "Trip not found.",
     "not_in_future": "The start date must be in the future.",
     "below_taken": "Capacity cannot be lower than the {taken} seats already booked.",
-    "has_bookings": "This departure has bookings and cannot be deleted."
+    "has_bookings": "This departure has bookings and cannot be deleted.",
+    "duration_locked": "This trip has active bookings, so its number of days cannot change. Cancel those bookings or create a new trip.",
+    "too_far": "The start date can be at most 3 years ahead.",
+    "duplicate_date": "This trip already has a departure on that date.",
+    "departure_past": "This departure has already started; its capacity can no longer be changed."
   },
   "departures": {
     "title": "Departures",

@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState } from "react";
+import { startTransition, useActionState } from "react";
 import type { ActionState } from "./action-state";
 
 export type FormMessages = {
@@ -14,7 +14,10 @@ export type FormMessages = {
 function fieldLabel(key: string, m: FormMessages) {
   const parts = key.split(".");
   const lang = (s?: string) => (s && ["en", "ru", "ky"].includes(s) ? ` (${s.toUpperCase()})` : "");
-  if (parts[0] === "itinerary") return `${m.day} ${parts[1]}: ${m.fields[parts[2]] ?? parts[2]}${lang(parts[3])}`;
+  if (parts[0] === "itinerary") {
+    const k = parts[2] === "title" ? "dayTitle" : parts[2] === "description" ? "dayDescription" : parts[2];
+    return `${m.day} ${parts[1]}: ${m.fields[k] ?? parts[2]}${lang(parts[3])}`;
+  }
   return `${m.fields[parts[0]] ?? parts[0]}${lang(parts[1])}`;
 }
 
@@ -36,7 +39,16 @@ export function ActionForm({
     ? (messages.errors[state.error] ?? state.error).replace("{taken}", String(state.taken ?? ""))
     : null;
   return (
-    <form action={formAction} className={className} aria-busy={pending}>
+    <form
+      // A transition (instead of `action=`) stops React 19 resetting the fields after the action, so errors keep the input.
+      onSubmit={(e) => {
+        e.preventDefault();
+        const fd = new FormData(e.currentTarget);
+        startTransition(() => formAction(fd));
+      }}
+      className={className}
+      aria-busy={pending}
+    >
       {children}
       {text && (
         <p role="alert" className="mt-2 text-sm text-red-700 dark:text-red-300">
