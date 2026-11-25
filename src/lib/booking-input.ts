@@ -42,53 +42,81 @@ const optionalText = (max: number) =>
     .optional()
     .transform((v) => v ?? null);
 
-const travelerSchema = z.object({
+/** Step 1 per-traveler fields: who is coming. */
+const travelerWhoShape = {
   fullName: z.string().trim().min(2, { error: "full_name_required" }).max(120),
   dateOfBirth: z.iso.date({ error: "invalid_date" }).refine((d) => d < new Date().toISOString().slice(0, 10), {
     error: "dob_in_past",
   }),
+};
+/** Step 2 per-traveler fields: experience and needs. */
+const travelerExperienceShape = {
   nationality: z.string().trim().min(2, { error: "required" }).max(60),
   diet: z.enum(options.diet),
   allergies: optionalText(500),
   ridingExperience: z.enum(options.ridingExperience),
+};
+const travelerSchema = z.object({ ...travelerWhoShape, ...travelerExperienceShape });
+
+const travelerList = <T extends z.ZodType>(item: T) =>
+  z
+    .array(item)
+    .min(1, { error: "min_travelers" })
+    .max(MAX_TRAVELERS, { error: "max_travelers" });
+
+const phoneSchema = z
+  .string()
+  .trim()
+  .regex(/^\+?[0-9\s()-]{7,20}$/, { error: "invalid_phone" });
+
+/** Step 1 — who's coming: lead contact plus each traveler's name and date of birth. */
+export const whoStepSchema = z.object({
+  contactName: z.string().trim().min(2, { error: "required" }).max(120),
+  email: z.email({ error: "invalid_email" }).max(200),
+  phone: phoneSchema,
+  messenger: z.enum(options.messenger),
+  country: z.string().trim().min(2, { error: "required" }).max(60),
+  travelers: travelerList(z.object(travelerWhoShape)),
 });
 
+/** Step 2 — experience: per-traveler needs plus group preferences. */
+export const experienceStepSchema = z.object({
+  travelers: travelerList(z.object(travelerExperienceShape)),
+  yurtArrangement: z.enum(options.yurtArrangement),
+  fitnessLevel: z.enum(options.fitnessLevel),
+  interests: z.array(z.enum(options.interests)).max(options.interests.length),
+  medicalNotes: optionalText(1000),
+  occasion: optionalText(200),
+});
+
+const arrivalShape = {
+  specialRequests: optionalText(2000),
+  referralSource: optionalText(200),
+  arrivalAirport: z.enum(options.arrivalAirport),
+  needsAirportPickup: z.boolean(),
+  arrivalFlight: optionalText(40),
+  emergencyName: z.string().trim().min(2, { error: "required" }).max(120),
+  emergencyPhone: phoneSchema,
+  consent: z.literal(true, { error: "consent_required" }),
+};
+const pickupRule = {
+  check: (b: { needsAirportPickup: boolean; arrivalAirport: string }) => !(b.needsAirportPickup && b.arrivalAirport === "other"),
+  params: { path: ["needsAirportPickup"], error: "pickup_airport_only" },
+};
+
+/** Step 3 — arrival, safety and consent. */
+export const confirmStepSchema = z.object(arrivalShape).refine(pickupRule.check, pickupRule.params);
+
+/** The full schema the server validates; composed from the step schemas, nothing weaker. */
 export const bookingInputSchema = z
   .object({
     departureId: z.coerce.number().int().positive(),
-    contactName: z.string().trim().min(2, { error: "required" }).max(120),
-    email: z.email({ error: "invalid_email" }).max(200),
-    phone: z
-      .string()
-      .trim()
-      .regex(/^\+?[0-9\s()-]{7,20}$/, { error: "invalid_phone" }),
-    messenger: z.enum(options.messenger),
-    country: z.string().trim().min(2, { error: "required" }).max(60),
-    travelers: z
-      .array(travelerSchema)
-      .min(1, { error: "min_travelers" })
-      .max(MAX_TRAVELERS, { error: "max_travelers" }),
-    yurtArrangement: z.enum(options.yurtArrangement),
-    fitnessLevel: z.enum(options.fitnessLevel),
-    interests: z.array(z.enum(options.interests)).max(options.interests.length),
-    medicalNotes: optionalText(1000),
-    occasion: optionalText(200),
-    specialRequests: optionalText(2000),
-    referralSource: optionalText(200),
-    arrivalAirport: z.enum(options.arrivalAirport),
-    needsAirportPickup: z.boolean(),
-    arrivalFlight: optionalText(40),
-    emergencyName: z.string().trim().min(2, { error: "required" }).max(120),
-    emergencyPhone: z
-      .string()
-      .trim()
-      .regex(/^\+?[0-9\s()-]{7,20}$/, { error: "invalid_phone" }),
-    consent: z.literal(true, { error: "consent_required" }),
+    ...whoStepSchema.omit({ travelers: true }).shape,
+    ...experienceStepSchema.omit({ travelers: true }).shape,
+    travelers: travelerList(travelerSchema),
+    ...arrivalShape,
   })
-  .refine((b) => !(b.needsAirportPickup && b.arrivalAirport === "other"), {
-    path: ["needsAirportPickup"],
-    error: "pickup_airport_only",
-  });
+  .refine(pickupRule.check, pickupRule.params);
 
 export type BookingInput = z.infer<typeof bookingInputSchema>;
 /** Field path -> error code. */

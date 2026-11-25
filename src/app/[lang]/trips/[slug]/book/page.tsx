@@ -74,8 +74,10 @@ async function BookingContent({ params, searchParams }: PageProps<"/[lang]/trips
           options: dict.options,
           errors: dict.errors,
           messages: dict.messages,
+          wizard: dict.wizard,
         }}
         departureId={departure.id}
+        departureDate={departure.startDate}
         maxTravelers={seatsLeft}
         pricePerPersonUsd={trip.pricePerPersonUsd}
         durationDays={trip.durationDays}
