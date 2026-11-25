@@ -1,5 +1,5 @@
 import { randomInt } from "node:crypto";
-import { and, asc, desc, eq, gt, inArray, ne, sql, type SQL } from "drizzle-orm";
+import { and, asc, eq, gt, inArray, ne, sql, type SQL } from "drizzle-orm";
 import type { Db } from "@/db";
 import { bookings, departures, travelers, trips, type BookingStatus } from "@/db/schema";
 import type { BookingInput } from "./booking-input";
@@ -107,19 +107,6 @@ export function getBookingByReference(db: Db, reference: string) {
   if (!row) return null;
   const people = db.select().from(travelers).where(eq(travelers.bookingId, row.booking.id)).all();
   return { ...row, travelers: people };
-}
-
-export function listBookings(db: Db) {
-  const rows = db
-    .select({ booking: bookings, departure: departures, trip: trips })
-    .from(bookings)
-    .innerJoin(departures, eq(departures.id, bookings.departureId))
-    .innerJoin(trips, eq(trips.id, departures.tripId))
-    .orderBy(desc(bookings.createdAt), desc(bookings.id))
-    .all();
-  const ids = rows.map((r) => r.booking.id);
-  const people = ids.length ? db.select().from(travelers).where(inArray(travelers.bookingId, ids)).all() : [];
-  return rows.map((r) => ({ ...r, travelers: people.filter((p) => p.bookingId === r.booking.id) }));
 }
 
 const allowedFrom: Record<Exclude<BookingStatus, "pending">, BookingStatus[]> = {
