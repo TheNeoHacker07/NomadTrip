@@ -6,6 +6,8 @@
   "unavailableText": "It has either started or sold out.",
   "seeOtherDates": "See other dates",
   "sections": {
+    "who": { "title": "Who's coming", "hint": "Name, phone and who is travelling — details come next." },
+    "confirm": { "title": "Arrival & confirm", "hint": "Arrival, emergency contact and a final check." },
     "contact": { "title": "Lead contact", "hint": "Who we talk to about this booking." },
     "travelers": { "title": "Travelers", "hint": "Everyone joining, including you. We use ages, diets and riding level to plan horses, menus and pace." },
     "experience": { "title": "Your experience", "hint": "Helps us tailor the yurt camp, activities and daily rhythm." },
@@ -20,14 +22,19 @@
     "messenger": "Preferred messenger",
     "country": "Country of residence",
     "travelerNumber": "Traveler {n}",
-    "remove": "Remove",
     "travelerFullName": "Full name (as in passport)",
     "dateOfBirth": "Date of birth",
     "nationality": "Nationality",
     "diet": "Diet",
     "ridingExperience": "Horse riding experience",
     "allergies": "Allergies (optional)",
-    "addTraveler": "+ Add traveler",
+    "travelerCount": "Number of travelers",
+    "ageAtDeparture": {
+      "one": "Age at departure: {count} year",
+      "few": "Age at departure: {count} years",
+      "many": "Age at departure: {count} years",
+      "other": "Age at departure: {count} years"
+    },
     "maxTravelers": {
       "one": "Maximum of {count} traveler for this departure.",
       "few": "Maximum of {count} travelers for this departure.",
@@ -104,6 +111,17 @@
     "consent_required": "Please accept so we can process your booking",
     "pickup_airport_only": "Pickup is available from FRU or OSS airports only",
     "invalid": "Please check this field"
+  },
+  "wizard": {
+    "progress": "Booking progress",
+    "stepOf": "Step {n} of {total}",
+    "steps": { "who": "Who", "experience": "Experience", "confirm": "Confirm" },
+    "back": "Back",
+    "next": "Next",
+    "edit": "Edit",
+    "reviewTitle": "Review your details",
+    "reviewHint": "Check everything before sending. Nothing is charged now.",
+    "notProvided": "—"
   },
   "messages": {
     "check_fields": "Please check the highlighted fields.",
