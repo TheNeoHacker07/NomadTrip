@@ -19,7 +19,7 @@ export function TripFiltersForm({
   return (
     // Keyed by the active filters: inputs use defaultValue, which only applies on mount, so a
     // client-side navigation (e.g. "Clear filters") must remount the form to show the new values.
-    <form key={JSON.stringify(filters)} method="get" action={`/${lang}`} className="card mb-6 grid gap-4 p-5 sm:grid-cols-2 lg:grid-cols-4" aria-label={t.title}>
+    <form key={JSON.stringify(filters)} method="get" action={`/${lang}`} className="card mb-6 grid gap-4 border-t-4 border-t-primary p-5 sm:grid-cols-2 lg:grid-cols-4" aria-label={t.title}>
       <div>
         <label htmlFor="f-region" className="label">{t.region}</label>
         <select id="f-region" name="region" defaultValue={filters.region ?? ""} className="field">
@@ -65,7 +65,7 @@ export function TripFiltersForm({
       <div className="flex items-end gap-3">
         <button type="submit" className="btn">{t.apply}</button>
         {hasActiveFilters(filters) || filters.sort !== "soonest" ? (
-          <Link href={`/${lang}#trips`} className="text-sm text-muted underline hover:text-accent">{t.clear}</Link>
+          <Link href={`/${lang}#trips`} className="text-sm text-muted underline underline-offset-4 hover:text-accent">{t.clear}</Link>
         ) : null}
       </div>
     </form>
