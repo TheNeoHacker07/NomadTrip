@@ -1,26 +1,37 @@
 @import "tailwindcss";
 
+/* "Steppe & Sky": lake-teal primary, apricot accent, warm sand surfaces. All pairs checked for WCAG AA. */
 :root {
-  --background: #faf6ef;
-  --foreground: #2b2118;
-  --muted: #6f6253;
-  --card: #ffffff;
-  --border: #e6dccb;
-  --accent: #b5442c; /* felt red */
+  --background: #f7f2e8; /* warm sand */
+  --foreground: #1c1a17; /* ink */
+  --muted: #5a5348;
+  --card: #fffdf8;
+  --border: #ddd2bc;
+  --accent: #0b5a60; /* deep lake teal: text, links, outlines on light */
   --accent-fg: #ffffff;
-  --gold: #c8962e; /* steppe gold */
+  --primary: #0f6e74; /* lake teal: fills, banners */
+  --gold: #e9a23b; /* apricot: primary buttons */
+  --gold-fg: #1c1a17; /* dark text on gold */
+  --gold-text: #8a5200; /* gold-family text on light surfaces */
+  --sky: #e4f0ee; /* pale teal wash */
+  --ring: #0b5a60;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #17130f;
-    --foreground: #f1e9dc;
-    --muted: #b3a690;
-    --card: #221c16;
-    --border: #3a3027;
-    --accent: #e0694d;
-    --accent-fg: #17130f;
-    --gold: #e0b453;
+    --background: #0d1824; /* night blue */
+    --foreground: #eef2ef;
+    --muted: #a7b6bd;
+    --card: #14253a;
+    --border: #28405a;
+    --accent: #6cc7c9; /* light teal */
+    --accent-fg: #0d1824;
+    --primary: #0f6e74;
+    --gold: #f0b556;
+    --gold-fg: #1c1a17;
+    --gold-text: #f0b556;
+    --sky: #12303c;
+    --ring: #f0b556;
   }
 }
 
@@ -32,8 +43,19 @@
   --color-border: var(--border);
   --color-accent: var(--accent);
   --color-accent-fg: var(--accent-fg);
+  --color-primary: var(--primary);
   --color-gold: var(--gold);
-  --font-sans: var(--font-geist-sans);
+  --color-gold-fg: var(--gold-fg);
+  --color-gold-text: var(--gold-text);
+  --color-sky: var(--sky);
+  --color-ring: var(--ring);
+  --font-sans: var(--font-body);
+  --font-display: var(--font-heading);
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
 }
 
 body {
@@ -41,17 +63,49 @@ body {
   color: var(--foreground);
 }
 
+h1,
+h2,
+h3 {
+  font-family: var(--font-display), Georgia, serif;
+  text-wrap: balance;
+}
+
+:focus-visible {
+  outline: 3px solid var(--ring);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
 @layer components {
   .field {
-    @apply w-full rounded-lg border border-border bg-card px-3 py-2 text-sm outline-none focus:border-accent focus:ring-2 focus:ring-accent/30 aria-invalid:border-red-500;
+    @apply w-full rounded-xl border border-border bg-card px-3 py-2.5 text-sm outline-none transition-colors focus:border-accent focus:ring-2 focus:ring-ring/40 aria-invalid:border-red-600;
   }
   .label {
     @apply mb-1 block text-sm font-medium;
   }
   .btn {
-    @apply inline-flex items-center justify-center rounded-lg bg-accent px-5 py-2.5 text-sm font-semibold text-accent-fg hover:opacity-90 disabled:opacity-50;
+    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-gold px-5 py-2.5 text-sm font-semibold text-gold-fg shadow-sm transition hover:brightness-95 disabled:opacity-50;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl border-2 border-accent bg-transparent px-5 py-2.5 text-sm font-semibold text-accent transition hover:bg-accent hover:text-accent-fg;
   }
   .card {
-    @apply rounded-2xl border border-border bg-card;
+    @apply rounded-2xl border border-border bg-card shadow-[0_1px_2px_rgb(28_26_23/0.04)];
+  }
+  .chip {
+    @apply inline-flex items-center rounded-full bg-sky px-2.5 py-0.5 text-xs font-medium text-accent;
   }
 }

@@ -1,5 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { isAdminAuthorization } from "@/lib/admin-auth";
+import { db } from "@/db";
+import { detailRouteExists } from "@/lib/route-exists";
 import { LOCALE_COOKIE } from "@/i18n/config";
 import { localeFromPathname, negotiateLocale } from "@/i18n/negotiate";
 
@@ -24,6 +26,11 @@ export function proxy(request: NextRequest) {
       headers: { "WWW-Authenticate": 'Basic realm="NomadTrip admin", charset="UTF-8"' },
     });
   }
+
+  // 3. Unknown trip slug / booking reference: Next streams the page shell (HTTP 200) before the page's `notFound()` runs,
+  //    so answer here, before streaming starts, by rewriting to a page that calls notFound() during prerender (real 404).
+  const rest = pathname.slice(lang.length + 1);
+  if (!detailRouteExists(db, rest)) return NextResponse.rewrite(new URL(`/${lang}/missing`, request.url));
   return NextResponse.next();
 }
 

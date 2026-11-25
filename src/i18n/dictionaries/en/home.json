@@ -3,5 +3,29 @@
   "headline": "Sleep under the shanyrak.",
   "intro": "Journeys from a weekend to a full month across alpine lakes, high passes and summer pastures — every night in a traditional yurt camp, hosted by nomad families.",
   "chooseJourney": "Choose your journey",
-  "priceFrom": "from {price}"
+  "priceFrom": "from {price}",
+  "heroBrowse": "Browse trips",
+  "heroIncluded": "What's included",
+  "experiencesTitle": "Things you will do",
+  "experiencesIntro": "Ride across the jailoo, meet an eagle hunter, press felt with your host family and fall asleep under a sky full of stars.",
+  "experiencesLink": "All experiences",
+  "howTitle": "How booking works",
+  "howIntro": "No payment online. Send a request, we confirm it personally, then you travel.",
+  "steps": {
+    "request": {
+      "title": "Send a request",
+      "body": "The request is not a payment. Choose a trip, a departure and your group size."
+    },
+    "confirm": {
+      "title": "We confirm",
+      "body": "Within 24 hours we check seats with our local partners and confirm by email, with payment details."
+    },
+    "travel": {
+      "title": "Travel",
+      "body": "Once confirmed, your guide and host families take care of the rest."
+    }
+  },
+  "ctaTitle": "Your yurt is waiting.",
+  "ctaBody": "Choose a departure and send your request — we reply personally.",
+  "ctaButton": "See all trips"
 }

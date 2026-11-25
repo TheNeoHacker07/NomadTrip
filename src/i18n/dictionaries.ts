@@ -13,6 +13,7 @@ import type content from "./dictionaries/en/content.json";
 import type included from "./dictionaries/en/included.json";
 import type manage from "./dictionaries/en/manage.json";
 import type inquiry from "./dictionaries/en/inquiry.json";
+import type discover from "./dictionaries/en/discover.json";
 
 /** Namespace -> dictionary shape, typed from the `en` files. */
 export type Dictionaries = {
@@ -27,6 +28,7 @@ export type Dictionaries = {
   included: typeof included;
   manage: typeof manage;
   inquiry: typeof inquiry;
+  discover: typeof discover;
 };
 export type Namespace = keyof Dictionaries;
 // Keeps config.namespaces and the typed dictionaries in lockstep.
@@ -46,6 +48,7 @@ const loaders = {
     included: () => import("./dictionaries/en/included.json"),
     manage: () => import("./dictionaries/en/manage.json"),
     inquiry: () => import("./dictionaries/en/inquiry.json"),
+    discover: () => import("./dictionaries/en/discover.json"),
   },
   ru: {
     common: () => import("./dictionaries/ru/common.json"),
@@ -59,6 +62,7 @@ const loaders = {
     included: () => import("./dictionaries/ru/included.json"),
     manage: () => import("./dictionaries/ru/manage.json"),
     inquiry: () => import("./dictionaries/ru/inquiry.json"),
+    discover: () => import("./dictionaries/ru/discover.json"),
   },
   ky: {
     common: () => import("./dictionaries/ky/common.json"),
@@ -72,6 +76,7 @@ const loaders = {
     included: () => import("./dictionaries/ky/included.json"),
     manage: () => import("./dictionaries/ky/manage.json"),
     inquiry: () => import("./dictionaries/ky/inquiry.json"),
+    discover: () => import("./dictionaries/ky/discover.json"),
   },
 } satisfies Record<Locale, { [N in Namespace]: () => Promise<{ default: Dictionaries[N] }> }>;
 

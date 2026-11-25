@@ -6,13 +6,15 @@ import { Suspense } from "react";
 import { Photo } from "@/components/photo";
 import { DifficultyBadge, Skeleton } from "@/components/ui";
 import { db } from "@/db";
-import { locales } from "@/i18n/config";
 import { getDictionary, getLang } from "@/i18n/dictionaries";
-import { languageAlternates, plural } from "@/i18n/format";
+import { plural } from "@/i18n/format";
 import { localize } from "@/i18n/localize";
 import { getTripWithDepartures } from "@/lib/bookings";
-import { tripCover } from "@/lib/images";
+import { images, tripCover } from "@/lib/images";
 import { addDays, formatDate, usd } from "@/lib/pricing";
+import { siteUrl, socialMetadata } from "@/lib/site";
+import { buildTripJsonLd, jsonLdString } from "@/lib/structured-data";
+import { SimilarTrips } from "@/components/similar-trips";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/trips/[slug]">): Promise<Metadata> {
   await connection();
@@ -20,11 +22,13 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/trips/[slu
   const lang = await getLang();
   const data = getTripWithDepartures(db, slug);
   if (!data) return {};
-  return {
+  return socialMetadata({
+    lang,
+    path: `/trips/${slug}`,
     title: localize(data.trip.title, lang),
     description: localize(data.trip.summary, lang),
-    alternates: { languages: languageAlternates(`/trips/${slug}`, locales) },
-  };
+    image: tripCover(data.trip.slug, data.trip.region),
+  });
 }
 
 export default function TripPage({ params }: PageProps<"/[lang]/trips/[slug]">) {
@@ -137,6 +141,22 @@ async function TripDetails({ params }: { params: PageProps<"/[lang]/trips/[slug]
           {departures.length > 0 && customLink}
         </div>
       </aside>
+      {/* discovery-seo: structured data + similar trips */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: jsonLdString(
+            buildTripJsonLd({
+              trip,
+              lang,
+              origin: siteUrl(),
+              imageUrl: `${siteUrl()}${images[tripCover(trip.slug, trip.region)].src}`,
+              offers: departures,
+            }),
+          ),
+        }}
+      />
+      <SimilarTrips trip={trip} />
     </article>
   );
 }

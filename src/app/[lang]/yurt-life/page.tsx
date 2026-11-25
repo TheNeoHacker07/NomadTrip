@@ -3,7 +3,7 @@ import Link from "next/link";
 import { locales } from "@/i18n/config";
 import { getDictionary, getLang } from "@/i18n/dictionaries";
 import { languageAlternates } from "@/i18n/format";
-import { CardGrid, PageHeader, Section } from "@/components/content-blocks";
+import { CardGrid, PageBanner, Section } from "@/components/content-blocks";
 
 export async function generateMetadata(): Promise<Metadata> {
   const { yurtLife: c } = await getDictionary("content");
@@ -18,7 +18,7 @@ export default async function YurtLifePage() {
   const [{ yurtLife: y }, lang] = await Promise.all([getDictionary("content"), getLang()]);
   return (
     <>
-      <PageHeader title={y.title} intro={y.intro} />
+      <PageBanner title={y.title} intro={y.intro} photo="yurt-interior" />
       <Section title={y.nightTitle}>
         <CardGrid items={Object.values(y.night)} />
       </Section>

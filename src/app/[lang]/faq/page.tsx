@@ -3,7 +3,7 @@ import Link from "next/link";
 import { locales } from "@/i18n/config";
 import { getDictionary, getLang } from "@/i18n/dictionaries";
 import { languageAlternates } from "@/i18n/format";
-import { PageHeader } from "@/components/content-blocks";
+import { PageBanner } from "@/components/content-blocks";
 
 export async function generateMetadata(): Promise<Metadata> {
   const { faq: c } = await getDictionary("content");
@@ -18,7 +18,7 @@ export default async function FaqPage() {
   const [{ faq }, lang] = await Promise.all([getDictionary("content"), getLang()]);
   return (
     <>
-      <PageHeader title={faq.title} intro={faq.intro} />
+      <PageBanner title={faq.title} intro={faq.intro} photo="jailoo" />
       <div className="mb-10 max-w-3xl space-y-4">
         {Object.values(faq.items).map((item) => (
           <section key={item.q} className="card p-5">

@@ -146,6 +146,7 @@ export function BookingForm({ lang, dict, departureId, departureDate, maxTravele
 
   return (
     <form
+      method="post"
       ref={formRef}
       noValidate
       className="mt-8 space-y-8"
@@ -170,10 +171,10 @@ export function BookingForm({ lang, dict, departureId, departureDate, maxTravele
                 key={label}
                 aria-current={n === step ? "step" : undefined}
                 className={`flex flex-1 items-center gap-2 border-t-4 pt-2 text-sm ${
-                  n <= step ? "border-accent font-semibold" : "border-border text-muted"
+                  n <= step ? "border-primary font-semibold dark:border-accent" : "border-border text-muted"
                 }`}
               >
-                <span aria-hidden="true">{n}</span>
+                <span aria-hidden="true" className={`inline-flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-bold ${n <= step ? "bg-gold text-gold-fg" : "bg-border text-foreground"}`}>{n}</span>
                 <span>{label}</span>
               </li>
             );
@@ -392,7 +393,7 @@ export function BookingForm({ lang, dict, departureId, departureDate, maxTravele
 
       <div className="flex items-center justify-between gap-3">
         {step > 1 ? (
-          <button type="button" className="rounded-lg border border-border px-4 py-2 text-sm hover:border-accent" onClick={() => goTo((step - 1) as Step)}>
+          <button type="button" className="rounded-xl border-2 border-border px-4 py-2 text-sm font-medium hover:border-accent" onClick={() => goTo((step - 1) as Step)}>
             ← {wizard.back}
           </button>
         ) : (

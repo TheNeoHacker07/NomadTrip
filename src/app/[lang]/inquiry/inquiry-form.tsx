@@ -43,6 +43,7 @@ export function InquiryForm({ lang, dict, messengers, trips, initialTripId }: Pr
 
   return (
     <form
+      method="post"
       onSubmit={(e) => {
         e.preventDefault();
         const fd = new FormData(e.currentTarget);

@@ -62,6 +62,7 @@ export function ManageForm({ lang, dict, statusLabels }: Props) {
   const error = state.status === "error" ? dict.errors[state.code] : null;
   return (
     <form
+      method="post"
       // A transition (not `action=`) stops React 19 clearing the fields after the action finishes.
       onSubmit={(e) => {
         e.preventDefault();

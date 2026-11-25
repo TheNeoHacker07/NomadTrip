@@ -40,6 +40,7 @@ export function ActionForm({
     : null;
   return (
     <form
+      method="post"
       // A transition (instead of `action=`) stops React 19 resetting the fields after the action, so errors keep the input.
       onSubmit={(e) => {
         e.preventDefault();

@@ -29,7 +29,7 @@ const blankToUndefined = (v: unknown) => (typeof v === "string" && v.trim() === 
 export const inquiryInputSchema = z.object({
   lang: z.enum(locales),
   name: z.string().trim().min(2, { error: "required" }).max(120, { error: "invalid" }),
-  email: z.email({ error: "invalid_email" }).max(200, { error: "invalid_email" }),
+  email: z.string().trim().pipe(z.email({ error: "invalid_email" }).max(200, { error: "invalid_email" })),
   phone: z.preprocess(blankToUndefined, phoneSchema.optional()).transform((v) => v ?? null),
   messenger: z.enum(options.messenger, { error: "required" }),
   tripId: z.preprocess(blankToUndefined, z.coerce.number({ error: "invalid" }).int({ error: "invalid" }).positive({ error: "invalid" }).optional()).transform((v) => v ?? null),
@@ -77,14 +77,14 @@ function toFieldErrors(error: z.ZodError): InquiryFieldErrors {
   return out;
 }
 
-export type InquiryResult = { ok: true } | { ok: false; errors: InquiryFieldErrors };
+export type InquiryResult = { ok: true; bot?: true } | { ok: false; errors: InquiryFieldErrors };
 
 /**
  * Validates and stores an inquiry. A filled honeypot (`website`) is a bot: report success, store nothing.
  * `now` is an ISO date (UTC) used for the "preferred start must be in the future" rule.
  */
 export function submitInquiry(db: Db, fd: FormData, now = new Date().toISOString().slice(0, 10)): InquiryResult {
-  if (text(fd, "website").trim() !== "") return { ok: true };
+  if (text(fd, "website").trim() !== "") return { ok: true, bot: true };
   const parsed = inquiryInputSchema.safeParse(formDataToInquiryInput(fd));
   if (!parsed.success) return { ok: false, errors: toFieldErrors(parsed.error) };
   const { consent, ...input } = parsed.data;

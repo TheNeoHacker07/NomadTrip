@@ -20,6 +20,16 @@ describe("csvCell", () => {
     expect(csvCell(v).replace(/^"/, "").startsWith("'")).toBe(true);
   });
 
+  it("guards leading whitespace before a formula and a leading newline", () => {
+    expect(csvCell(" =1+1")).toBe("' =1+1");
+    expect(csvCell("\n=1")).toBe(`"'\n=1"`);
+  });
+
+  it("keeps plain phone numbers usable but guards formulas starting with +", () => {
+    expect(csvCell("+996 555 123456")).toBe("+996 555 123456");
+    expect(csvCell("+SUM(1)")).toBe("'+SUM(1)");
+  });
+
   it("protects and quotes at once", () => {
     expect(csvCell('=HYPERLINK("http://x","y")')).toBe(`"'=HYPERLINK(""http://x"",""y"")"`);
   });

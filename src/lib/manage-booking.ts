@@ -1,9 +1,8 @@
+import { and, eq, sql } from "drizzle-orm";
 import type { Db } from "@/db";
+import { bookings, departures, travelers, trips } from "@/db/schema";
 import type { BookingStatus } from "@/db/schema";
 import type { Localized } from "@/i18n/localize";
-import { getBookingByReference } from "./bookings";
-
-const REFERENCE_RE = /^NT-[A-Z2-9]{8}$/;
 
 /** "nt 2abc-d3fg" -> "NT-2ABCD3FG": trims, drops spaces/hyphens, upper-cases, restores the `NT-` prefix. */
 export function normalizeReference(raw: string): string {
@@ -34,9 +33,17 @@ export type ManageBookingView = {
 export function lookupBooking(db: Db, referenceInput: string, emailInput: string): ManageBookingView | null {
   const reference = normalizeReference(referenceInput);
   const email = normalizeEmail(emailInput);
-  const found = REFERENCE_RE.test(reference) ? getBookingByReference(db, reference) : null;
-  if (!found || !email || normalizeEmail(found.booking.email) !== email) return null;
-  const { booking, departure, trip, travelers } = found;
+  // One query for every input (malformed references simply match nothing); travelers are loaded only on a match.
+  const row = db
+    .select({ booking: bookings, departure: departures, trip: trips })
+    .from(bookings)
+    .innerJoin(departures, eq(departures.id, bookings.departureId))
+    .innerJoin(trips, eq(trips.id, departures.tripId))
+    .where(and(eq(bookings.reference, reference.slice(0, 40)), sql`ulower(trim(${bookings.email})) = ulower(${email})`))
+    .get();
+  if (!row || !email) return null;
+  const { booking, departure, trip } = row;
+  const people = db.select({ fullName: travelers.fullName }).from(travelers).where(eq(travelers.bookingId, booking.id)).all();
   return {
     reference: booking.reference,
     status: booking.status,
@@ -44,7 +51,7 @@ export function lookupBooking(db: Db, referenceInput: string, emailInput: string
     tripTitle: trip.title,
     startDate: departure.startDate,
     durationDays: trip.durationDays,
-    travelerNames: travelers.map((t) => t.fullName),
+    travelerNames: people.map((t) => t.fullName),
     yurtArrangement: booking.yurtArrangement,
     totalPriceUsd: booking.totalPriceUsd,
     pickup: { needed: booking.needsAirportPickup, airport: booking.arrivalAirport, flight: booking.arrivalFlight },

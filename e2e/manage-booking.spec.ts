@@ -57,3 +57,21 @@ test.describe("manage my booking", () => {
     await expect(page.getByRole("link", { name: m.calendar })).toHaveAttribute("href", `/${lang}/bookings/${reference}/calendar.ics`);
   });
 });
+
+test.describe("manage my booking without JavaScript", () => {
+  test.use({ javaScriptEnabled: false });
+
+  test("a pre-hydration submit never puts the reference or email in the URL", async ({ page }) => {
+    const { reference } = insertBooking({ departureId: firstDeparture(slug).id, travelers: 1, name: "NoJs Guest" });
+    await page.goto(`/${lang}/manage-booking`);
+    await page.getByLabel(m.form.reference).fill(reference);
+    await page.getByLabel(m.form.email).fill(EMAIL);
+    const [response] = await Promise.all([page.waitForNavigation().catch(() => null), page.getByRole("button", { name: m.form.submit }).click()]);
+    const url = page.url();
+    expect(url).not.toMatch(/email=|reference=/i);
+    expect(url).not.toContain("fill%40");
+    expect(url).not.toContain("fill@");
+    expect(url).not.toContain(reference);
+    if (response) expect(response.status()).toBeLessThan(500);
+  });
+});

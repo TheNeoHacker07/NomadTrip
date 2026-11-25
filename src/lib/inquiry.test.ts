@@ -54,7 +54,7 @@ describe("submitInquiry", () => {
   });
 
   it("pretends success but stores nothing when the honeypot is filled", () => {
-    expect(submitInquiry(db, form({ website: "http://spam.example" }), NOW)).toEqual({ ok: true });
+    expect(submitInquiry(db, form({ website: "http://spam.example" }), NOW)).toEqual({ ok: true, bot: true });
     expect(count()).toBe(0);
   });
 

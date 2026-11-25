@@ -1,4 +1,4 @@
-import { intlLocale, type Locale } from "./config";
+import { defaultLocale, intlLocale, type Locale } from "./config";
 
 /** Plural entry: every locale carries all four keys (unused categories repeat `other`). */
 export type PluralForms = { one: string; few: string; many: string; other: string };
@@ -17,5 +17,5 @@ export function plural(forms: PluralForms, count: number, lang: Locale, vars: Re
 /** Alternate-language map for `metadata.alternates.languages`; `path` is locale-less, e.g. `/trips/x`. */
 export function languageAlternates(path: string, locales: readonly Locale[]) {
   const suffix = path === "/" ? "" : path;
-  return Object.fromEntries(locales.map((l) => [l, `/${l}${suffix}`]));
+  return { ...Object.fromEntries(locales.map((l) => [l, `/${l}${suffix}`])), "x-default": `/${defaultLocale}${suffix}` };
 }

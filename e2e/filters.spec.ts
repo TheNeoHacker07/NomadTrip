@@ -1,5 +1,5 @@
 import { expect, test, type Page } from "@playwright/test";
-import { formatDate } from "../src/lib/pricing";
+import { addDays, formatDate } from "../src/lib/pricing";
 import { allTrips, dict, futureDate, insertBooking, withDb, addDeparture, todayIso, type TripRow } from "./helpers";
 
 const lang = "en";
@@ -96,19 +96,23 @@ test.describe("home filters (en)", () => {
   });
 
   test("date range uses open departures only (a sold-out departure drops the trip from that window)", async ({ page }) => {
-    // Window around the day-28 departure; fill that departure on one trip so only it is affected.
+    // Window around the victim's second departure (read from the DB, so it follows the seeded season);
+    // fill that departure so only it is affected.
     const victim = allTrips().find((t) => t.slug === "batken-ak-suu")!;
-    const day28 = futureDate(28);
-    const depId = withDb((db) => (db.prepare("select id, capacity from departures where trip_id = ? and start_date = ?").get(victim.id, day28) as { id: number; capacity: number } | undefined));
-    expect(depId).toBeDefined();
-    insertBooking({ departureId: depId!.id, travelers: depId!.capacity, status: "confirmed" });
-    // Another trip has a departure only inside the window thanks to a custom date.
+    const dep = withDb((db) =>
+      db.prepare("select id, capacity, start_date from departures where trip_id = ? order by start_date limit 1 offset 1").get(victim.id) as
+        | { id: number; capacity: number; start_date: string }
+        | undefined,
+    );
+    expect(dep).toBeDefined();
+    insertBooking({ departureId: dep!.id, travelers: dep!.capacity, status: "confirmed" });
+    // Another trip gets a departure inside the window that no seeded departure shares.
     const loner = allTrips().find((t) => t.slug === "song-kul-weekend")!;
-    const lonerDate = futureDate(21);
+    const lonerDate = addDays(dep!.start_date, -7);
     addDeparture(loner.id, lonerDate, 4);
 
-    const from = futureDate(20);
-    const to = futureDate(30);
+    const from = addDays(dep!.start_date, -8);
+    const to = addDays(dep!.start_date, 2);
     await page.goto(`/${lang}`);
     await page.locator("#f-from").fill(from);
     await page.locator("#f-to").fill(to);

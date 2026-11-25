@@ -12,10 +12,16 @@
     "whatsIncluded": "Эмне кирет",
     "experiences": "Таасирлер",
     "photoCredits": "Сүрөт авторлору",
-    "language": "Тил"
+    "language": "Тил",
+    "departures": "Жөнөө даталары",
+    "manageBooking": "Менин брондоом",
+    "menu": "Меню",
+    "closeMenu": "Менюну жабуу"
   },
   "footer": {
-    "tagline": "NomadTrip · Кыргызстан боюнча боз үйлөрдө түнөп саякаттоо"
+    "tagline": "NomadTrip · Кыргызстан боюнча боз үйлөрдө түнөп саякаттоо",
+    "tripsTitle": "Саякаттар",
+    "infoTitle": "Маалымат"
   },
   "regions": {
     "chui": "Чүй облусу",

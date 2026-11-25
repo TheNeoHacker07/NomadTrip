@@ -3,7 +3,7 @@ import { createDb } from "../src/db";
 import { departures, trips, type ItineraryDay, type TripRegion } from "../src/db/schema";
 import { locales, type Locale } from "../src/i18n/config";
 import type { Localized } from "../src/i18n/localize";
-import { addDays } from "../src/lib/pricing";
+import { seasonDepartures } from "../src/lib/season";
 
 /** Builds a Localized value from its three translations. */
 const l = <T>(en: T, ru: T, ky: T): Localized<T> => ({ en, ru, ky });
@@ -788,7 +788,7 @@ if (fresh.length === 0) {
   db.transaction((tx) => {
     for (const { capacity, ...trip } of fresh) {
       const { id } = tx.insert(trips).values({ ...trip, durationDays: trip.itinerary.en.length }).returning().get();
-      const starts = [14, 28, 42, 56, 84, 112].map((d) => addDays(start, d));
+      const starts = seasonDepartures(start, trip.itinerary.en.length);
       tx.insert(departures).values(starts.map((startDate) => ({ tripId: id, startDate, capacity }))).run();
     }
   });
