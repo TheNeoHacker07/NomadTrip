@@ -10,7 +10,7 @@ Drizzle ORM + SQLite (better-sqlite3) · Zod 4 · Vitest · Playwright.
 ```bash
 npm install
 cp .env.example .env.local      # set ADMIN_PASSWORD (and SITE_URL / TRUST_PROXY_HOPS in production)
-npm run db:setup                # create data/nomadtrip.db, apply migrations, seed 10 trips (idempotent)
+npm run db:setup                # create data/nomadtrip.db, apply migrations, seed 18 trips (idempotent; re-run to add new catalog trips)
 npm run build && npm start      # http://localhost:3000  (or `npm run dev` while developing)
 ```
 

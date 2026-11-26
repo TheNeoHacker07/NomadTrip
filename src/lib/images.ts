@@ -271,6 +271,14 @@ const tripCovers: Record<string, ImageKey> = {
   "talas-manas-ordo": "manas-ordo",
   "kel-suu-lake": "kel-suu",
   "osh-alay-tulpar-kol": "tulpar-kol",
+  "issyk-kul-south-shore": "issyk-kul",
+  "tash-rabat-caravanserai": "tash-rabat",
+  "arslanbob-walnut-forest": "arslanbob",
+  "eagle-hunters-jeti-oguz": "eagle-hunter",
+  "jailoo-family-stay": "jailoo",
+  "karakol-ala-kul-trek": "trekking",
+  "silk-road-north-to-south": "alay-valley",
+  "three-lakes-odyssey": "yurt-camp",
 };
 
 export function regionCover(region: TripRegion): ImageKey {
