@@ -27,5 +27,12 @@
   },
   "ctaTitle": "Your yurt is waiting.",
   "ctaBody": "Choose a departure and send your request — we reply personally.",
-  "ctaButton": "See all trips"
+  "ctaButton": "See all trips",
+  "ctaIntro": "Every night of your trip is spent in a yurt camp run by a local family — the same felt homes nomads have lived in for centuries, set on high summer pastures by lakes and mountains.",
+  "ctaPoints": {
+    "sleep": "Thick felt tushuk mattresses with warm blankets",
+    "stove": "A stove lit in the evening when the mountain air turns cold",
+    "meals": "Home-cooked meals at your host family’s table"
+  },
+  "ctaYurtLink": "Read about yurt life"
 }

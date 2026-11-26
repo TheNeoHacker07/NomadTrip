@@ -132,7 +132,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<Sea
         </ol>
       </section>
 
-      <section className="relative isolate overflow-hidden rounded-3xl bg-primary px-6 pb-8 pt-20 text-center text-white sm:px-10 sm:pt-24">
+      <section className="relative isolate overflow-hidden rounded-3xl bg-primary px-6 pb-8 pt-16 text-center text-white sm:px-10 sm:pt-20">
         <Image
           src={cta.src}
           width={cta.width}
@@ -143,10 +143,24 @@ export default async function Home({ searchParams }: { searchParams: Promise<Sea
         />
         <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-t from-[#06161b]/85 via-[#06161b]/50 to-[#06161b]/25" />
         <h2 className="font-display text-3xl font-semibold tracking-tight sm:text-4xl">{home.ctaTitle}</h2>
-        <p className="mx-auto mt-3 max-w-xl text-white/90">{home.ctaBody}</p>
-        <a href="#trips" className="btn mt-8 px-6 py-3 text-base">
-          {home.ctaButton}
-        </a>
+        <p className="mx-auto mt-4 max-w-2xl text-lg leading-relaxed text-white/90">{home.ctaIntro}</p>
+        <ul className="mx-auto mt-8 grid max-w-4xl gap-3 text-left sm:grid-cols-3">
+          {Object.values(home.ctaPoints).map((point) => (
+            <li key={point} className="flex gap-3 rounded-2xl bg-white/10 p-4 text-sm leading-relaxed text-white backdrop-blur-sm">
+              <span aria-hidden="true" className="mt-0.5 text-[#f6c978]">✦</span>
+              {point}
+            </li>
+          ))}
+        </ul>
+        <p className="mx-auto mt-8 max-w-xl text-white/90">{home.ctaBody}</p>
+        <div className="mt-6 flex flex-wrap justify-center gap-3">
+          <a href="#trips" className="btn px-6 py-3 text-base">
+            {home.ctaButton}
+          </a>
+          <Link href={`/${lang}/yurt-life`} className="inline-flex items-center rounded-xl border-2 border-white/80 px-6 py-3 text-base font-semibold text-white transition hover:bg-white hover:text-[#06161b]">
+            {home.ctaYurtLink} <span aria-hidden="true" className="ml-1">→</span>
+          </Link>
+        </div>
         <p className="mt-12 text-right text-xs text-white/75">
           <a href={cta.sourceUrl} target="_blank" rel="noopener noreferrer" className="underline decoration-dotted underline-offset-2">
             {ctaCredit}
