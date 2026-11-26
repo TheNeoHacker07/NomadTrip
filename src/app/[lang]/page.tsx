@@ -28,12 +28,16 @@ export async function generateMetadata(): Promise<Metadata> {
 const heroPhoto = "song-kul" as const;
 const experienceCards = ["horseRiding", "eagleHunting", "feltMaking", "stargazing"] as const;
 const experiencePhotos = { horseRiding: "horse-riding", eagleHunting: "eagle-hunter", feltMaking: "felt-making", stargazing: "night-sky" } as const;
+const stepPhotos = ["jailoo", "yurt-interior", "trekking"] as const;
+const ctaPhoto = "yurt-exterior" as const;
 
 export default async function Home({ searchParams }: { searchParams: Promise<SearchParams> }) {
   const [home, included, lang] = await Promise.all([getDictionary("home"), getDictionary("included"), getLang()]);
   const hero = images[heroPhoto];
   const credit = interpolate(included.photo.credit, { author: hero.author, license: hero.license });
   const steps = [home.steps.request, home.steps.confirm, home.steps.travel];
+  const cta = images[ctaPhoto];
+  const ctaCredit = interpolate(included.photo.credit, { author: cta.author, license: cta.license });
   return (
     <>
       <section className="relative isolate -mt-8 mb-14 mr-[calc(50%-50vw)] ml-[calc(50%-50vw)] flex min-h-[28rem] items-end overflow-hidden bg-primary sm:min-h-[34rem]">
@@ -109,23 +113,45 @@ export default async function Home({ searchParams }: { searchParams: Promise<Sea
         <p className="mt-2 max-w-2xl text-muted">{home.howIntro}</p>
         <ol className="mt-8 grid gap-6 md:grid-cols-3">
           {steps.map((step, i) => (
-            <li key={step.title} className="card p-6">
-              <span aria-hidden="true" className="mb-4 inline-flex size-10 items-center justify-center rounded-full bg-gold font-display text-lg font-bold text-gold-fg">
-                {i + 1}
-              </span>
-              <h3 className="font-display text-xl font-semibold">{step.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted">{step.body}</p>
+            <li key={step.title} className="card overflow-hidden">
+              <Photo
+                name={stepPhotos[i]}
+                sizes="(min-width: 768px) 33vw, 100vw"
+                frame="aspect-[16/10]"
+                className="[&>div]:rounded-none [&>figcaption]:px-6"
+              />
+              <div className="px-6 pb-6 pt-3">
+                <span aria-hidden="true" className="mb-3 inline-flex size-10 items-center justify-center rounded-full bg-gold font-display text-lg font-bold text-gold-fg">
+                  {i + 1}
+                </span>
+                <h3 className="font-display text-xl font-semibold">{step.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted">{step.body}</p>
+              </div>
             </li>
           ))}
         </ol>
       </section>
 
-      <section className="rounded-3xl bg-primary px-6 py-14 text-center text-white sm:px-10">
+      <section className="relative isolate overflow-hidden rounded-3xl bg-primary px-6 pb-8 pt-20 text-center text-white sm:px-10 sm:pt-24">
+        <Image
+          src={cta.src}
+          width={cta.width}
+          height={cta.height}
+          alt={localize(cta.alt, lang)}
+          sizes="(min-width: 1152px) 1152px, 100vw"
+          className="absolute inset-0 -z-10 size-full object-cover object-[85%_60%]"
+        />
+        <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-t from-[#06161b]/85 via-[#06161b]/50 to-[#06161b]/25" />
         <h2 className="font-display text-3xl font-semibold tracking-tight sm:text-4xl">{home.ctaTitle}</h2>
         <p className="mx-auto mt-3 max-w-xl text-white/90">{home.ctaBody}</p>
         <a href="#trips" className="btn mt-8 px-6 py-3 text-base">
           {home.ctaButton}
         </a>
+        <p className="mt-12 text-right text-xs text-white/75">
+          <a href={cta.sourceUrl} target="_blank" rel="noopener noreferrer" className="underline decoration-dotted underline-offset-2">
+            {ctaCredit}
+          </a>
+        </p>
       </section>
     </>
   );
