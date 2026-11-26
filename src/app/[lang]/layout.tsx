@@ -3,7 +3,6 @@ import { Inter, Lora } from "next/font/google";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
-import { HornDivider } from "@/components/ornament";
 import { SiteHeader } from "@/components/site-header";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { isLocale, localeLabels, locales } from "@/i18n/config";
@@ -44,20 +43,27 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
     { href: `/${lang}/manage-booking`, label: common.nav.manageBooking },
     { href: `/${lang}/about`, label: common.nav.about },
   ];
-  const infoLinks = [
-    { href: `/${lang}/whats-included`, label: common.nav.whatsIncluded },
-    { href: `/${lang}/experiences`, label: common.nav.experiences },
-    { href: `/${lang}/about`, label: common.nav.about },
-    { href: `/${lang}/yurt-life`, label: common.nav.yurtLife },
-    { href: `/${lang}/faq`, label: common.nav.faq },
-    { href: `/${lang}/photo-credits`, label: common.nav.photoCredits },
-  ];
   const tripLinks = [
     { href: `/${lang}#trips`, label: common.nav.allTrips },
     { href: `/${lang}/departures`, label: common.nav.departures },
     { href: `/${lang}/manage-booking`, label: common.nav.manageBooking },
   ];
-  const linkCls = "hover:text-accent hover:underline underline-offset-4";
+  const guideLinks = [
+    { href: `/${lang}/whats-included`, label: common.nav.whatsIncluded },
+    { href: `/${lang}/experiences`, label: common.nav.experiences },
+    { href: `/${lang}/yurt-life`, label: common.nav.yurtLife },
+    { href: `/${lang}/faq`, label: common.nav.faq },
+  ];
+  const companyLinks = [
+    { href: `/${lang}/about`, label: common.nav.about },
+    { href: `/${lang}/photo-credits`, label: common.nav.photoCredits },
+  ];
+  const footerColumns = [
+    { title: common.footer.tripsTitle, links: tripLinks },
+    { title: common.footer.infoTitle, links: guideLinks },
+    { title: common.footer.companyTitle, links: companyLinks },
+  ];
+  const linkCls = "text-white/75 transition hover:text-[#f6c978]";
 
   return (
     <html lang={lang} className={`${body.variable} ${heading.variable} h-full antialiased`}>
@@ -74,35 +80,36 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
           }
         />
         <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-8">{children}</main>
-        <footer className="mt-16 border-t border-border bg-sky/60">
-          <HornDivider className="pt-8" />
-          <div className="mx-auto grid max-w-6xl gap-8 px-4 pb-10 pt-6 text-sm sm:grid-cols-3">
-            <div>
-              <p className="font-display text-xl font-bold">
-                Nomad<span className="text-accent">Trip</span>
-              </p>
-              <p className="mt-2 max-w-xs text-muted">{common.footer.tagline}</p>
+        {/* Always dark (both colour schemes), matching the home hero's night-lake tone. */}
+        <footer className="mt-16 bg-[#06161b] text-white">
+          <div className="mx-auto grid max-w-6xl grid-cols-2 gap-10 px-4 pb-10 pt-14 text-sm md:grid-cols-[1.4fr_repeat(3,1fr)]">
+            <div className="col-span-2 md:col-span-1">
+              <Link href={`/${lang}`} className="font-display text-2xl font-bold">
+                Nomad<span className="text-[#f6c978]">Trip</span>
+              </Link>
+              <p className="mt-3 max-w-xs leading-relaxed text-white/75">{common.footer.tagline}</p>
+              <Link href={`/${lang}/inquiry`} className="btn mt-6">
+                {common.footer.customTrip} <span aria-hidden="true">→</span>
+              </Link>
             </div>
-            <nav aria-label={common.footer.tripsTitle}>
-              <p className="mb-3 font-semibold">{common.footer.tripsTitle}</p>
-              <ul className="space-y-2 text-muted">
-                {tripLinks.map((l) => (
-                  <li key={l.href}>
-                    <Link href={l.href} className={linkCls}>{l.label}</Link>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-            <nav aria-label={common.footer.infoTitle}>
-              <p className="mb-3 font-semibold">{common.footer.infoTitle}</p>
-              <ul className="space-y-2 text-muted">
-                {infoLinks.map((l) => (
-                  <li key={l.href}>
-                    <Link href={l.href} className={linkCls}>{l.label}</Link>
-                  </li>
-                ))}
-              </ul>
-            </nav>
+            {footerColumns.map((col) => (
+              <nav key={col.title} aria-label={col.title}>
+                <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-[#f6c978]">{col.title}</p>
+                <ul className="space-y-3">
+                  {col.links.map((l) => (
+                    <li key={l.href}>
+                      <Link href={l.href} className={linkCls}>{l.label}</Link>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            ))}
+          </div>
+          <div className="border-t border-white/10">
+            <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-2 px-4 py-5 text-xs text-white/60">
+              <p>© NomadTrip</p>
+              <p>{common.footer.season}</p>
+            </div>
           </div>
         </footer>
       </body>

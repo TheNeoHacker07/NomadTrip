@@ -19,9 +19,12 @@
     "closeMenu": "Close menu"
   },
   "footer": {
-    "tagline": "NomadTrip · Yurt journeys across Kyrgyzstan",
+    "tagline": "Small-group journeys across Kyrgyzstan, from 2 days to a month. Every night in a family-run yurt camp.",
     "tripsTitle": "Trips",
-    "infoTitle": "Information"
+    "infoTitle": "Travel guide",
+    "companyTitle": "NomadTrip",
+    "customTrip": "Plan a custom trip",
+    "season": "Yurt camps are open June – September"
   },
   "regions": {
     "chui": "Chui",
